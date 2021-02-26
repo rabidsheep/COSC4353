@@ -1,6 +1,16 @@
 # COSC4353-HW2
  Group 11 Assignment #2 for COSC 4353 with Singh
 
+
+## How to run the project
+
+- Have Node.js installed
+- Open a terminal to the directory of the project
+	- Use bash, powershell, it doesn't matter
+- Run: `npm install -g serve`
+- Run: `serve`
+- Open the browser to the URL that is printed
+
 In this assignment you will build the front end for the web application that you designed in assignment 1. 
 Remember, we are only building front end in this assignment.
 
