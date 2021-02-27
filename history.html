@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>History</title>
+	<link rel="stylesheet" href="static/history.css">
 	<link rel="stylesheet" href="static/main.css">
 </head>
 <body>
@@ -27,23 +28,53 @@
 			<div class="ptitle">
 					<p class="ptitle">Your Quote History</p>
 			</div>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas nibh neque, pretium a nunc et, viverra pretium ligula.</p>
+			<p>A list of your previously submitted appraisal requests: </p>
 			<!-- Fake data goes here -->
-			<table>
+			<table id="history_table">
 				<thead>
 					<tr>
-						<td>hello</td>
-						<td>world</td>
+						<th>Reference Number</th>
+						<th>Date Requested</th>
+						<th>Status</th>
+						<th>Terms</th>
+						<th>Invoice</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td>1</td>
-						<td>2</td>
+						<td>769560437</td>
+						<td>01-06-2021</td>
+						<td>Processing</td>
+						<td>Express</td>
+						<td> <a href="#"> <img src="static/pdf_png.png"> </a> </td>
 					</tr>
 					<tr>
-						<td>1</td>
-						<td>2</td>
+						<td>754264326</td>
+						<td>12-28-2020</td>
+						<td>Finalized</td>
+						<td>Standard</td>
+						<td> <a href="#"> <img src="static/pdf_png.png"> </a> </td>
+					</tr>
+					<tr>
+						<td>663256435</td>
+						<td>10-27-2020</td>
+						<td>Finalized</td>
+						<td>Standard</td>
+						<td> <a href="#"> <img src="static/pdf_png.png"> </a> </td>
+					</tr>
+					<tr>
+						<td>601345772</td>
+						<td>09-04-2020</td>
+						<td>Cancelled</td>
+						<td>Standard</td>
+						<td> <a href="#"> <img src="static/pdf_png.png"> </a> </td>
+					</tr>
+					<tr>
+						<td>455426347</td>
+						<td>03-24-2020</td>
+						<td>Finalized</td>
+						<td>Standard</td>
+						<td> <a href="#"> <img src="static/pdf_png.png"> </a> </td>
 					</tr>
 				</tbody>
 			</table>

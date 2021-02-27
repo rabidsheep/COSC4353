@@ -1,0 +1,22 @@
+#main {
+  text-align: center;
+}
+
+#history_table{
+  margin: auto;
+}
+
+#history_table td {
+  padding: 5px 25px 0px 25px;
+  text-align: left;
+}
+
+#history_table th {
+  padding: 5px 25px 0px 25px;
+  text-align: left;
+}
+
+#history_table img{
+  height: 20px;
+  padding-left: 13px;
+}
