@@ -28,6 +28,17 @@ namespace OilTycoon
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
+            // Specify configuration for Swagger, the interactive API testing page
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "OilTycoon",
+                    Description = "A simple ASP.NET Core Web API"
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,6 +67,9 @@ namespace OilTycoon
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
             });
+
+            app.UseSwagger();
+            app.UseSwaggerUI();
 
             app.UseSpa(spa =>
             {
