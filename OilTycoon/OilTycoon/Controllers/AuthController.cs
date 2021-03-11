@@ -34,7 +34,6 @@ namespace OilTycoon.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        //[Route("login")]
         public async Task<string> Login([FromQuery] string userName, [FromQuery] string rawPassword)
         {
             // Here, we give back a "JWT" string for the credentials we are given
@@ -43,7 +42,6 @@ namespace OilTycoon.Controllers
 
         [HttpGet]
         [Authorize]
-        //[Route("GetMeEmbedded")]
         public async Task<dynamic> GetMeEmbedded()
         {
             // Here, we test out what data we can get out of the "currently logged in" user, without a database call!
@@ -56,7 +54,6 @@ namespace OilTycoon.Controllers
 
         [HttpGet]
         [Authorize]
-        //[Route("GetMeDatabase")]
         public async Task<User> GetMeDatabase()
         {
             // Here, we use the data we can get out of the "currently logged in" user to make a complete database call about them
