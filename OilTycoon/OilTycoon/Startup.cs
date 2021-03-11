@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
+using OilTycoon.Auth;
 using OilTycoon.Database;
 
 namespace OilTycoon
@@ -20,8 +22,11 @@ namespace OilTycoon
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Run the "Startup.cs" file in OilTycoon.DB
+            // Run the "Startup.cs" file in OilTycoon.Database
             services.ConfigureDatabaseServices(Configuration);
+
+            // Run the "Startup.cs" file in OilTycoon.Auth
+            services.ConfigureAuthServices(Configuration);
 
 
             services.AddControllersWithViews();
@@ -35,12 +40,39 @@ namespace OilTycoon
             // Specify configuration for Swagger, the interactive API testing page
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
                     Title = "OilTycoon",
                     Description = "A simple ASP.NET Core Web API"
                 });
+
+                // Bearer token authentication
+                OpenApiSecurityScheme securityDefinition = new OpenApiSecurityScheme()
+                {
+                    Name = "Bearer",
+                    BearerFormat = "JWT",
+                    Scheme = "bearer",
+                    Description = "Specify the authorization token.",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
+                };
+                c.AddSecurityDefinition("jwt_auth", securityDefinition);
+
+                // Make sure swagger UI requires a Bearer token specified
+                OpenApiSecurityScheme securityScheme = new OpenApiSecurityScheme()
+                {
+                    Reference = new OpenApiReference()
+                    {
+                        Id = "jwt_auth",
+                        Type = ReferenceType.SecurityScheme
+                    }
+                };
+                OpenApiSecurityRequirement securityRequirements = new OpenApiSecurityRequirement()
+                {
+                    {securityScheme, new string[] { }},
+                };
+                c.AddSecurityRequirement(securityRequirements);
             });
         }
 
@@ -63,6 +95,8 @@ namespace OilTycoon
             app.UseSpaStaticFiles();
 
             app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

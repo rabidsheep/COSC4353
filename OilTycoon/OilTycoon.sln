@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.31105.61
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OilTycoon", "OilTycoon\OilTycoon.csproj", "{48F186C0-9B56-4358-B523-A8FE0DA61F89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OilTycoon.Database", "OilTycoon.Database\OilTycoon.Database.csproj", "{A46FAD8E-5206-49CA-83CB-03A38BB41609}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OilTycoon.Database", "OilTycoon.Database\OilTycoon.Database.csproj", "{A46FAD8E-5206-49CA-83CB-03A38BB41609}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OilTycoon.Auth", "OilTycoon.Auth\OilTycoon.Auth.csproj", "{D11ADAEA-99D5-4A0F-B1CF-5C43A7D142AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{A46FAD8E-5206-49CA-83CB-03A38BB41609}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A46FAD8E-5206-49CA-83CB-03A38BB41609}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A46FAD8E-5206-49CA-83CB-03A38BB41609}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D11ADAEA-99D5-4A0F-B1CF-5C43A7D142AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D11ADAEA-99D5-4A0F-B1CF-5C43A7D142AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D11ADAEA-99D5-4A0F-B1CF-5C43A7D142AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D11ADAEA-99D5-4A0F-B1CF-5C43A7D142AC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
