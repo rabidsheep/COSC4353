@@ -5,11 +5,12 @@ using OilTycoon.Database.ef;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace OilTycoon.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class AuthController : ControllerBase
     {
@@ -22,7 +23,7 @@ namespace OilTycoon.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        [Route("register")]
+        //[Route("register")]
         public async Task<User> Register([FromBody] RegistrationDetails item)
         {
             // "RegistrationDetails" just holds a "User" and "rawPassword" in one object
@@ -33,16 +34,16 @@ namespace OilTycoon.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        [Route("login")]
+        //[Route("login")]
         public async Task<string> Login([FromQuery] string userName, [FromQuery] string rawPassword)
         {
             // Here, we give back a "JWT" string for the credentials we are given
-            return await _loginService.LoginUserForJWT(userName, rawPassword);
+            return JsonSerializer.Serialize<string>(await _loginService.LoginUserForJWT(userName, rawPassword));
         }
 
         [HttpGet]
         [Authorize]
-        [Route("GetMeEmbedded")]
+        //[Route("GetMeEmbedded")]
         public async Task<dynamic> GetMeEmbedded()
         {
             // Here, we test out what data we can get out of the "currently logged in" user, without a database call!
@@ -55,7 +56,7 @@ namespace OilTycoon.Controllers
 
         [HttpGet]
         [Authorize]
-        [Route("GetMeDatabase")]
+        //[Route("GetMeDatabase")]
         public async Task<User> GetMeDatabase()
         {
             // Here, we use the data we can get out of the "currently logged in" user to make a complete database call about them

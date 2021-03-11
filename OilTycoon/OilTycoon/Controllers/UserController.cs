@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OilTycoon.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -21,14 +21,12 @@ namespace OilTycoon.Controllers
         }
 
         [HttpGet]
-        [Route("")]
         public async Task<IEnumerable<User>> GetAll()
         {
             return await _userRepo.GetAll();
         }
 
         [HttpGet]
-        [Route("{id}")]
         public async Task<User> GetById(int id)
         {
             var results = await _userRepo.GetWhere(e => e.Id == id);
