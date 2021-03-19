@@ -1,0 +1,26 @@
+﻿body {
+    background-color: #f6fff8;
+}
+
+#login {
+    width: 500px;
+    height: 250px;
+    margin: 0 auto;
+    margin-top: 10%;
+    box-shadow: 10px 10px #888888;
+    margin-bottom: 50px;
+    border: 1px solid;
+    display: table;
+    text-align: center;
+}
+
+/* title */
+#login #logo {
+    font-size: 40px;
+}
+
+/* for centering login inputs */
+#login #login-wrapper {
+    width: 50%;
+    margin: 0 auto;
+}
