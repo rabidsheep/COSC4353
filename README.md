@@ -19,7 +19,7 @@ Group 11 project for COSC 4353 with Singh
 
 ### Running
 
-Open `SoftwareEngineering.sln` in Visual Studio 2019. Once open, Visual Studio will automatically start downloading the C# dependencies that this project needs to run.
+Open `OilTycoon.sln` in Visual Studio 2019. Once open, Visual Studio will automatically start downloading the C# dependencies that this project needs to run.
 
 To start the project, press the "Start debugging" button that looks like this:
 
