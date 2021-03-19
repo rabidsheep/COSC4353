@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { TitleArea } from '../../components/Reusables';
 
 export function Login(props: any) {
