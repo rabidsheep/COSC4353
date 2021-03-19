@@ -71,3 +71,10 @@ What to turn in:
 - Only one submission per group.
 - No extensions.
 - All group members must contribute equally.
+
+## To-do
+
+- Logout functionality
+- Client profile management functionality
+- Fuel quote & pricing functionality
+- Code coverage report
