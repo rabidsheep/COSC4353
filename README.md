@@ -1,6 +1,6 @@
 # COSC4353
 
-[![.NET 5](https://github.com/rabidwooloo/COSC4353-HW2/actions/workflows/dotnet5.yml/badge.svg)](https://github.com/rabidwooloo/COSC4353-HW2/actions/workflows/dotnet5.yml)
+[![.NET 5](https://github.com/rabidwooloo/COSC4353/actions/workflows/dotnet5.yml/badge.svg)](https://github.com/rabidwooloo/COSC4353/actions/workflows/dotnet5.yml)
 
 Group 11 project for COSC 4353 with Singh
 
