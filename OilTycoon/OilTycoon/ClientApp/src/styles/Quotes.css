@@ -1,0 +1,55 @@
+﻿#quote-wrapper {
+    width: auto;
+    margin: 0 auto;
+    border-spacing: 30px 10px;
+}
+
+#quote-wrapper .section, .inputs {
+    vertical-align: top;
+}
+
+#quote-wrapper .section, .labels {
+    font-family: "Times New Roman", Times, serif;
+}
+
+#quote-wrapper .section {
+    text-align: right;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+#quote-wrapper .labels {
+    font-size: 14px;
+}
+
+#quote-wrapper #qty, #add {
+    width: 100%;
+}
+
+#quote-wrapper .fields {
+    width: 250px;
+}
+
+#quote-wrapper .fields .field, .dropdown {
+        height: 20px;
+ }
+
+#quote-wrapper input[name="add1"], input[name="add2"] {
+    width: 250px;
+}
+
+#quote-wrapper input[name="zip"] {
+    width: 60px;
+}
+
+#quote-wrapper input[name="city"] {
+    width: 120px;
+}
+
+#quote-wrapper input[name="gallons"], .dropdown {
+    width: 50px;
+}
+
+#quote-wrapper input[type="submit"] {
+    margin-top: 10px;
+}
