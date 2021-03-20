@@ -1,4 +1,4 @@
-import { Navigation, TitleArea } from '../../components/Reusables';
+import { Navigation, TitleArea } from '../components/Reusables';
 
 // HTML for user homepage
 export function Contact() {
