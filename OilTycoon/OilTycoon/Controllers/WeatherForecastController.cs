@@ -34,6 +34,11 @@ namespace OilTycoon.Controllers
             // Here `this.User` is available to this class because we told ASP.NET
             // how we want it to identify users in "OilTycoon.Auth.Startup.cs"
 
+            var userName = _loginService.GetUsername(this.User);
+            Console.WriteLine(userName);
+
+
+
             if(_loginService.HasRole(this.User, "ADMIN"))
             {
                 // do something special idk
