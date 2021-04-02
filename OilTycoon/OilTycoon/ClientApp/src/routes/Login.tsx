@@ -1,55 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { NavLink, useHistory } from 'react-router-dom';
 import { TitleArea } from '../components/Reusables';
-
-interface fakeDb {
-    username: string,
-    password: string,
-}
+import { AuthClient } from '../generated'
 
 export function Login(props: any) {
 
-    const goToRegister = () => {
-        props.history.push('/register');
-    }
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
 
-    const handleLoginSubmit = async (e: any) => {
+    const history = useHistory();
+
+    const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        let username = e.target.elements.username.value;
-        let password = e.target.elements.password.value;
+        const auth = new AuthClient();
+        const jwt = await auth.login(username, password);
 
-        // change this part later to instead verify login by connecting to backend
-        let fakeUsers: fakeDb[] = [
-            {
-                username: 'admin',
-                password: 'password'
-            },
-            {
-                username: 'fakeuser',
-                password: 'fakepw'
-            }
-        ]
+        if(jwt === null) {
+            //bad combination
+            alert('wrong username or password combination');
+        }
+        else {
+            console.log('you\'re logged in!');
+            localStorage.setItem('jwt', jwt);
 
-
-        if ((fakeUsers.find(user => user.username === username))) {
-            if ((fakeUsers.find(user => user.password === password))) {
-                console.log('you\'re logged in!');
-
-                // store logged in status to keep track across app
-                localStorage.setItem('username', username);
-                localStorage.setItem('password', password);
-                localStorage.setItem('loggedIn', 'true');
-
-
-                // bring user to user homepage
-                props.history.push('/quote');
-            } else {
-                //bad combination
-                alert('wrong username or password combination');
-            }
-        } else {
-            // if username doesn't exist, bring user to registration 
-            props.history.push('/register');
+            history.push('/quote');
         }
     }
 
@@ -64,16 +39,16 @@ export function Login(props: any) {
                         <tbody>
                             <tr>
                                 <td>Username: </td>
-                                <td><input type="text" name="username" required /></td>
+                                <td><input type="text" value={username} onChange={(e) => setUsername(e.target.value)} name="username" required /></td>
                             </tr>
                             <tr>
                                 <td>Password: </td>
-                                <td><input type="text" name="password" required /></td>
+                                <td><input type="password" value={password} onChange={(e) => setPassword(e.target.value)} name="password" required /></td>
                             </tr>
                         </tbody>
                     </table>
                     <br />
-                    <button type="submit">Login</button> <button onClick={goToRegister}>Register</button>
+                    <button type="submit">Login</button> <NavLink to="/register"><button>Register</button></NavLink>
                 </form>
             </div>
         </div>
