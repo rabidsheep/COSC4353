@@ -1,20 +1,28 @@
+import React, { useState } from 'react';
 import { Navigation, TitleArea } from '../components/Reusables';
 
 // HTML for user homepage
 export function Quotes() {
+
+	const roundTo2Decimals = (x: number) => Math.round(x * 100) / 100;
+	const generateRandomGasPrice = () => roundTo2Decimals(Math.random() * 2 + 1);
+
+	const [quantity, setQuantity] = useState(0);
+	const [price, setPrice] = useState(generateRandomGasPrice());
+
 	const getQuote = (e: any) => {
 		e.preventDefault();
-		let data = {
-			qty: e.target.elements.gallons.value,
-			add1: e.target.elements.add1.value,
-			add2: e.target.elements.add2.value,
-			city: e.target.elements.city.value,
-			state: e.target.elements.state.value,
-			zip: e.targe.t.elements.zip.value
-		}
+		// let data = {
+		// 	qty: e.target.elements.gallons.value,
+		// 	add1: e.target.elements.add1.value,
+		// 	add2: e.target.elements.add2.value,
+		// 	city: e.target.elements.city.value,
+		// 	state: e.target.elements.state.value,
+		// 	zip: e.targe.t.elements.zip.value
+		// }
 
 		// check to make sure data is being filled out properly
-		console.log(data);
+		//console.log(data);
 	}
 
 
@@ -36,7 +44,7 @@ export function Quotes() {
 									<table className="fields">
 										<tbody>
 											<tr>
-												<td><input name="gallons" type="string" pattern="[0-9]" required /></td>
+												<td><input name="gallons" type="number" value={quantity} onChange={(e) => setQuantity(parseInt(e.target.value))} pattern="[0-9]" required /></td>
 											</tr>
 										</tbody>
 									</table>
@@ -123,6 +131,45 @@ export function Quotes() {
 												<td><label>City</label></td>
 												<td><label>State</label></td>
 												<td><label>ZIP</label></td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+							</tr>
+							<tr id="date">
+								<td className="section">Delivery Date</td>
+								<td className="inputs">
+									<table className="fields">
+										<tbody>
+											<tr>
+												<td><input name="delivery_date" type="date" required /></td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+							</tr>
+							<tr id="price">
+								<td className="section">Suggested Price</td>
+								<td className="inputs">
+									<table className="fields">
+										<tbody>
+											<tr>
+												<td><strong>${price} per gallon</strong></td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<hr />
+							</tr>
+							<tr>
+								<td className="section">Total Amount Due</td>
+								<td className="inputs">
+									<table className="fields">
+										<tbody>
+											<tr>
+												<td><strong>${roundTo2Decimals(quantity * price)}</strong></td>
 											</tr>
 											<tr className="form-button">
 												<td colSpan={3}><input type="submit" onClick={getQuote} value="Get Quote" /></td>
