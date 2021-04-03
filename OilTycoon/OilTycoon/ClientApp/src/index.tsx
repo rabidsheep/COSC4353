@@ -40,7 +40,7 @@ export function RoutePages() {
     return (
         <Router>
             <Switch>
-                <UnauthenticatedRoute path={["/", "/login"]} exact component={Login} appProps={{ isAuthenticated }} />
+                <UnauthenticatedRoute path="/" exact component={Login} appProps={{ isAuthenticated }} />
                 <UnauthenticatedRoute path="/register" component={Register} appProps={{ isAuthenticated }} />
                 <AuthenticatedRoute path="/quote" component={Quotes} appProps={{ isAuthenticated }} />
                 <AuthenticatedRoute path="/history" component={UserHistory} appProps={{ isAuthenticated }} />
