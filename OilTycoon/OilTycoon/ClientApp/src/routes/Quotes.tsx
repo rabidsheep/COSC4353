@@ -49,6 +49,7 @@ export function Quotes() {
 				deliveryDate: new Date(deliveryDate).toLocaleDateString(),
 			}));
 			console.log(fuelQuote);
+			alert('quote submitted!');
 		}
 		catch(err) {
 			alert('quote failed to submit!');

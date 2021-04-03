@@ -45,14 +45,20 @@ namespace OilTycoon.Controllers
         public async Task<FuelQuote> SubmitQuote([FromBody] FuelQuote quote)
         {
             // gets userId of currently logged in user
-            var userId = (await _loginService.GetUser(this.User)).Id;
+            var currentUser = await _loginService.GetUser(this.User);
 
             // overwrite fields the user might try to fill for us
             quote.Quantity = Math.Abs(quote.Quantity);
             quote.Id = 0;
-            quote.UserId = userId;
+            quote.UserId = currentUser.Id;
             quote.Price = GetSuggestedPrice(); // no fooling us with spoofed prices from the client ;)
             quote.TotalDue = quote.Quantity * quote.Price;
+            // TODO: use "currentUser" to set address data
+            quote.Address1 = "123 Fake St";
+            quote.Address2 = "Suite 42069";
+            quote.City = "Houston";
+            quote.State = "TX";
+            quote.ZipCode = "77000";
 
             var result = _FuelQuoteRepo.Add(quote);
             await _FuelQuoteRepo.Save();

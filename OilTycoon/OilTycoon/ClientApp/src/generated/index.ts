@@ -571,6 +571,11 @@ export class UserClient extends AuthorizedApiBase {
 export class FuelQuote implements IFuelQuote {
     id?: number;
     userId?: number;
+    address1?: string | undefined;
+    address2?: string | undefined;
+    city?: string | undefined;
+    state?: string | undefined;
+    zipCode?: string | undefined;
     quantity?: number;
     deliveryDate?: string | undefined;
     price?: number;
@@ -589,6 +594,11 @@ export class FuelQuote implements IFuelQuote {
         if (_data) {
             this.id = _data["id"];
             this.userId = _data["userId"];
+            this.address1 = _data["address1"];
+            this.address2 = _data["address2"];
+            this.city = _data["city"];
+            this.state = _data["state"];
+            this.zipCode = _data["zipCode"];
             this.quantity = _data["quantity"];
             this.deliveryDate = _data["deliveryDate"];
             this.price = _data["price"];
@@ -607,6 +617,11 @@ export class FuelQuote implements IFuelQuote {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["userId"] = this.userId;
+        data["address1"] = this.address1;
+        data["address2"] = this.address2;
+        data["city"] = this.city;
+        data["state"] = this.state;
+        data["zipCode"] = this.zipCode;
         data["quantity"] = this.quantity;
         data["deliveryDate"] = this.deliveryDate;
         data["price"] = this.price;
@@ -618,6 +633,11 @@ export class FuelQuote implements IFuelQuote {
 export interface IFuelQuote {
     id?: number;
     userId?: number;
+    address1?: string | undefined;
+    address2?: string | undefined;
+    city?: string | undefined;
+    state?: string | undefined;
+    zipCode?: string | undefined;
     quantity?: number;
     deliveryDate?: string | undefined;
     price?: number;
