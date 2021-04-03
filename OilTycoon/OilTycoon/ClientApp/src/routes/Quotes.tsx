@@ -28,11 +28,11 @@ export function Quotes() {
 			const myself = await userClient.getMyself();
 
 			// TODO: use "myself" to set address data
-			setAddress1('123 Fake St'); // could be `setAddress1(myself.address1)`
-			setAddress2('Suite 42069'); // could be `setAddress2(myself.address2)`
-			setCity('Houston'); // could be `setCity(myself.city)`
-			setState('TX'); // could be `setState(myself.state)`
-			setZip('77000'); // could be `setZip(myself.zip)`
+			setAddress1(myself.address1!); // could be `setAddress1(myself.address1)`
+			setAddress2(myself.address2!); // could be `setAddress2(myself.address2)`
+			setCity(myself.city!); // could be `setCity(myself.city)`
+			setState(myself.state!); // could be `setState(myself.state)`
+			setZip(myself.zipCode!); // could be `setZip(myself.zip)`
 		}
 		fetchData();
 	}, []);
