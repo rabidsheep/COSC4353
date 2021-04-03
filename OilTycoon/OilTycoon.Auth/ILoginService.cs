@@ -13,5 +13,12 @@ namespace OilTycoon.Auth
         Task<User> GetUser(ClaimsPrincipal user);
         Task<User> RegisterUser(User registrant, string rawPassword);
         Task<string> LoginUserForJWT(string userName, string rawPassword);
+
+        string GenerateSalt();
+
+        string ComputeHash(string rawPassword, string salt);
+        //Task<User> ChangePassword(int id, string rawPassword);
+
+        //string[] ChangePassword(string rawPassword);
     }
 }

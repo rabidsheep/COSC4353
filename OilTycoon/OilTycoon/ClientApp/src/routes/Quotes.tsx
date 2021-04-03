@@ -5,7 +5,7 @@ import { FuelQuote, FuelQuoteClient, UserClient } from '../generated';
 // HTML for user homepage
 export function Quotes() {
 
-	const roundTo2Decimals = (x: number) => Math.round(x * 100) / 100;
+	const roundTo2Decimals = (x: number) => (Math.round(x * 100) / 100).toFixed(2);
 	const generateRandomGasPrice = () => roundTo2Decimals(Math.random() * 2 + 1);
 
 	const [quantity, setQuantity] = useState(0);
@@ -27,7 +27,6 @@ export function Quotes() {
 
 			const myself = await userClient.getMyself();
 
-			// TODO: use "myself" to set address data
 			setAddress1(myself.address1!); // could be `setAddress1(myself.address1)`
 			setAddress2(myself.address2!); // could be `setAddress2(myself.address2)`
 			setCity(myself.city!); // could be `setCity(myself.city)`

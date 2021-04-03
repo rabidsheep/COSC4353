@@ -74,6 +74,35 @@ namespace OilTycoon.Auth
             return results.FirstOrDefault();
         }
 
+        /*public async Task<User> ChangePassword(int id, string rawPassword)
+        {
+
+            var userData = (await _userRepo.GetWhere(e => e.Id == id)).FirstOrDefault();
+
+            var salt = GenerateSalt();
+            var hashed = ComputeHash(rawPassword, salt);
+
+            userData.PasswordSalt = salt;
+            userData.PasswordHash = hashed;
+
+            await _userRepo.Update(userData);
+            return userData;
+
+        }*/
+
+        /*public string[] ChangePassword(string rawPassword)
+        {
+            var salt = GenerateSalt();
+            var hashed = ComputeHash(rawPassword, salt);
+
+            string[] results = new string[1];
+
+            results[0] = salt;
+            results[1] = hashed;
+
+            return results;
+        }*/
+
         public async Task<User> RegisterUser(User registrant, string rawPassword)
         {
             if (!await isUserRegistered(registrant.UserName))
@@ -158,7 +187,7 @@ namespace OilTycoon.Auth
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        private string GenerateSalt()
+        public string GenerateSalt()
         {
             // Generate the salt with a secure random number generator
             var rng = RandomNumberGenerator.Create();
@@ -167,7 +196,7 @@ namespace OilTycoon.Auth
             return BitConverter.ToString(saltBytes);
         }
 
-        private string ComputeHash(string rawPassword, string salt)
+        public string ComputeHash(string rawPassword, string salt)
         {
             // The salt needs to be used in the same way everywhere, so let's create a dedicated method
             return BitConverter.ToString(SHA256.Create().ComputeHash(Encoding.UTF8.GetBytes($"{rawPassword} {salt}")));

@@ -49,5 +49,49 @@ namespace OilTycoon.Controllers
         {
             return await _loginService.GetUser(this.User);
         }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<User> UpdateUser([FromBody] UpdateDetails profileChanges)
+        {
+
+            var newInfo = profileChanges.User;
+            var currentPw = profileChanges.CurrentPassword;
+            var newPw = profileChanges.NewPassword;
+
+            var tempJWT = await _loginService.LoginUserForJWT(newInfo.UserName, currentPw);
+
+            if (tempJWT != null)
+            {
+                // retrieve current user id
+                var userId = (await _loginService.GetUser(this.User)).Id;
+
+                // retrieve fields that can be modified
+                var userData = (await _userRepo.GetWhere(e => e.Id == userId)).FirstOrDefault();
+
+                // update info
+                userData.FirstName = newInfo.FirstName;
+                userData.LastName = newInfo.LastName;
+                userData.Address1 = newInfo.Address1;
+                userData.Address2 = newInfo.Address2;
+                userData.City = newInfo.City;
+                userData.State = newInfo.State;
+                userData.ZipCode = newInfo.ZipCode;
+
+                // update password if newPw is new
+                // TODO: make it so generatesalt and computehash are still private members of login services
+                if (newPw != null && newPw != " " && newPw != "" && newPw != currentPw)
+                {
+                    userData.PasswordSalt = _loginService.GenerateSalt();
+                    userData.PasswordHash = _loginService.ComputeHash(newPw, userData.PasswordSalt);
+                }
+
+                await _userRepo.Update(userData);
+                return userData;
+            } else
+            {
+                return null;
+            }
+        }
     }
 }

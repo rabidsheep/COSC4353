@@ -1,47 +1,63 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { handleKeyDown, toPascal } from '../components/InputValidation';
 import { Navigation, TitleArea } from '../components/Reusables';
-import { UserClient } from '../generated';
+import { UserClient, UpdateDetails, User } from '../generated';
 
 /* still needed: function to fill out form with customer's current info in the system upon loading page */
 
 // HTML for user profile
 export function UserProfile() {
-	const [username, setUsername] = useState('');
-	const [firstname, setFirstName] = useState('');
-	const [lastname, setLastName] = useState('');
-	const [address1, setAddress1] = useState('');
-	const [address2, setAddress2] = useState('');
-	const [city, setCity] = useState('');
-	const [state, setState] = useState('');
-	const [zip, setZip] = useState('');
 
 	useEffect(() => {
 		const fetchData = async () => {
 					const userClient = new UserClient();
 					const myself = await userClient.getMyself();
 
-					// TODO: use "myself" to set address data
-
-					setUsername(myself.userName!);
-					setFirstName(myself.firstName!);
-					setLastName(myself.lastName!);
-					setAddress1(myself.address1!); // could be `setAddress1(myself.address1`
-					setAddress2(myself.address2!); // could be `setAddress2(myself.address2)`
-					setCity(myself.city!); // could be `setCity(myself.city)`
-					setState(myself.state!); // could be `setState(myself.state)`
-					setZip(myself.zipCode!); // could be `setZip(myself.zip)`
+					(document.getElementsByName('username')[0] as HTMLTextAreaElement).value = myself.userName!;
+					(document.getElementsByName('firstName')[0] as HTMLTextAreaElement).value = myself.firstName!;
+					(document.getElementsByName('lastName')[0] as HTMLTextAreaElement).value = myself.lastName!;
+					(document.getElementsByName('add1')[0] as HTMLTextAreaElement).value = myself.address1!;
+					(document.getElementsByName('add2')[0] as HTMLTextAreaElement).value = myself.address2!;
+					(document.getElementsByName('city')[0] as HTMLTextAreaElement).value = myself.city!;
+					(document.getElementsByName('state')[0] as HTMLTextAreaElement).value = myself.state!;
+					(document.getElementsByName('zip')[0] as HTMLTextAreaElement).value = myself.zipCode!;
 			}
 			fetchData();
 		}, []);
 
-	/* function that runs when update button is clicked - stores all values currently in each field
-	update to connect function to database later */
+	/* update user info */
 	const handleUpdate = async (e: any) => {
 		e.preventDefault();
 
-		const userClient = new UserClient();
-		const myself = await userClient.getMyself();
+		const updateClient = new UserClient();
+		const update = await updateClient.updateUser(new UpdateDetails({
+			user: new User({
+				id: 0,
+				userName: e.target.elements.username.value,
+				firstName: toPascal(e.target.elements.firstName.value),
+				lastName: toPascal(e.target.elements.lastName.value),
+				address1: toPascal(e.target.elements.add1.value),
+				address2: toPascal(e.target.elements.add2.value),
+				city: toPascal(e.target.elements.city.value),
+				state: (e.target.elements.state.value).toUpperCase(),
+				zipCode: e.target.elements.zip.value,
+				passwordHash: undefined,
+				passwordSalt: undefined,
+				roles: undefined,
+			}),
+			currentPassword: e.target.elements.currentPw.value,
+			newPassword: e.target.elements.newPw.value
+		}));
+
+		// if update returns null, user entered wrong password
+		if (update == null) {
+			alert("Error: Incorrect password")
+		};
+
+		(document.getElementsByName('currentPw')[0] as HTMLTextAreaElement).value = "";
+		(document.getElementsByName('newPw')[0] as HTMLTextAreaElement).value = "";
+
+		console.log(update);
 	}
 
 	return (
@@ -59,31 +75,31 @@ export function UserProfile() {
 						<tbody>
 							<tr>
 								<td>Username: </td>
-								<td><input type="text" value={username} name="username" onKeyDown={handleKeyDown} required /></td>
+								<td><input type="text" name="username" onKeyDown={handleKeyDown} disabled required /></td>
 							</tr>
 							<tr>
 								<td><label>First Name: </label></td>
-									<td><input name="firstName" value={firstname} type="text" /></td>
+									<td><input name="firstName" type="text" /></td>
 							</tr>
 							<tr>
 								<td><label>Last Name: </label></td>
-									<td><input name="lastName" value={lastname} type="text" /></td>
+									<td><input name="lastName" type="text" /></td>
 							</tr>
 							<tr>
 								<td>Address 1: </td>
-									<td><input type="text" value={address1} name="add1" required /></td>
+									<td><input type="text" name="add1" required /></td>
 							</tr>
 							<tr>
 								<td>Address 2: </td>
-									<td><input type="text" value={address2} name="add2" /></td>
+									<td><input type="text" name="add2" /></td>
 							</tr>
 							<tr>
 								<td>City: </td>
-									<td><input type="text" value={city} name="city" required /></td>
+									<td><input type="text" name="city" required /></td>
 							</tr>
 							<tr>
 								<td>State: </td>
-								<td><select name="state" className="dropdown" value={state} required>
+								<td><select name="state" className="dropdown" required>
 									<option value="">&nbsp;</option>
 									<option value="AL">AL</option>
 									<option value="AK">AK</option>
@@ -141,15 +157,15 @@ export function UserProfile() {
 							</tr>
 							<tr>
 								<td>Zip Code: </td>
-									<td><input type="text" name="zip" value={zip} maxLength={5} onKeyDown={handleKeyDown} pattern="[0-9]{5}" required /></td>
+									<td><input type="text" name="zip" maxLength={5} onKeyDown={handleKeyDown} pattern="[0-9]{5}" required /></td>
 							</tr>
 							<tr>
 								<td><label>Current Password: </label></td>
-								<td><input name="currentPw" type="text" /></td>
+								<td><input name="currentPw" type="password" /></td>
 							</tr>
 							<tr>
 								<td><label>New Password: </label></td>
-								<td><input name="newPw" type="text" /></td>
+								<td><input name="newPw" type="password" /></td>
 							</tr>
 						</tbody>
 					</table>

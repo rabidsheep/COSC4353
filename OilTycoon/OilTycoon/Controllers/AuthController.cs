@@ -32,6 +32,7 @@ namespace OilTycoon.Controllers
             return await _loginService.RegisterUser(item.User, item.RawPassword);
         }
 
+
         [HttpPost]
         [AllowAnonymous]
         public async Task<string> Login([FromQuery] string userName, [FromQuery] string rawPassword)
