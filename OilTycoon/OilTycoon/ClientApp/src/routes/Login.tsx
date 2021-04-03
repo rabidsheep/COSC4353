@@ -15,7 +15,6 @@ export function Login(props: any) {
 
         const auth = new AuthClient();
         const jwt = await auth.login(username, password);
-        console.log(jwt);
 
         if(jwt === null) {
             //bad combination
