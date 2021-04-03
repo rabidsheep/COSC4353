@@ -41,6 +41,7 @@ namespace OilTycoon.Database.ef
         // If we wanted to add more tables to the database, we would add another line below this one of similar structure
         // Example: `public virtual DbSet<Quote> Quotes { get; set; }`
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<FuelQuote> FuelQuotes { get; set; }
 
         // Where we define the rules of the database, such as if a field is required, a length limit, how its encoded, etc
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -74,6 +75,27 @@ namespace OilTycoon.Database.ef
                         from => JsonSerializer.Serialize(from, null), // The function we want to call to go: FROM C# native object TO raw text for database storage
                         to => JsonSerializer.Deserialize<IEnumerable<string>>(to, null) // The function we want to call to go: FROM raw text for database storage TO C# native object
                     );
+            });
+
+            modelBuilder.Entity<FuelQuote>(entity =>
+            {
+                entity.HasKey(e => e.Id)
+                    .HasName("PK_Id");
+
+                entity.Property(e => e.UserId)
+                    .IsRequired();
+
+                entity.Property(e => e.Quantity)
+                    .IsRequired();
+
+                entity.Property(e => e.DeliveryDate)
+                    .IsRequired();
+
+                entity.Property(e => e.Price)
+                    .IsRequired();
+
+                entity.Property(e => e.TotalDue)
+                    .IsRequired();
             });
 
             OnModelCreatingPartial(modelBuilder);

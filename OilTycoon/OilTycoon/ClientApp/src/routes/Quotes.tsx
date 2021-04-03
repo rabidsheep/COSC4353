@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Navigation, TitleArea } from '../components/Reusables';
+import { FuelQuote, FuelQuoteClient, UserClient } from '../generated';
 
 // HTML for user homepage
 export function Quotes() {
@@ -8,7 +9,7 @@ export function Quotes() {
 	const generateRandomGasPrice = () => roundTo2Decimals(Math.random() * 2 + 1);
 
 	const [quantity, setQuantity] = useState(0);
-	const [price, setPrice] = useState(generateRandomGasPrice());
+	const [price, setPrice] = useState(0);
 	const [address1, setAddress1] = useState('');
 	const [address2, setAddress2] = useState('');
 	const [city, setCity] = useState('');
@@ -17,32 +18,57 @@ export function Quotes() {
 	const [deliveryDate, setDeliveryDate] = useState('');
 
 	useEffect(() => {
-		// Simulate loading the address data
-		// TODO: load address data for the currently logged in user!
+		const fetchData = async () => {
+			// Simulate loading the address data
+			const fuelClient = new FuelQuoteClient();
+			const userClient = new UserClient();
 
-		setAddress1('123 Fake St');
-		setAddress2('Suite 42069');
-		setCity('Houston');
-		setState('TX');
-		setZip('77000');
-	}, [])
+			setPrice(await fuelClient.getSuggestedPrice());
 
-	const getQuote = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		//alert((e.target as any).checkValidity());
-		let data = {
-			qty: quantity,
-			add1: address1,
-			add2: address2,
-			city: city,
-			state: state,
-			zip: zip
+			const myself = await userClient.getMyself();
+
+			// TODO: use "myself" to set address data
+
+			setAddress1('123 Fake St');
+			setAddress2('Suite 42069');
+			setCity('Houston');
+			setState('TX');
+			setZip('77000');
 		}
+		fetchData();
+	}, []);
+
+	const getQuote = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		
+		const fuelClient = new FuelQuoteClient();
+		
+		try {
+			const fuelQuote = await fuelClient.submitQuote(new FuelQuote({
+				quantity: quantity,
+				deliveryDate: new Date(deliveryDate),
+			}));
+			console.log(fuelQuote);
+		}
+		catch(err) {
+			alert('quote failed to submit!');
+		}
+		
+
+		// let data = {
+		// 	qty: quantity,
+		// 	add1: address1,
+		// 	add2: address2,
+		// 	city: city,
+		// 	state: state,
+		// 	zip: zip
+		// }
+
+
 
 		// check to make sure data is being filled out properly
-		console.log(data);
+		//console.log(data);
 
-		// TODO: submit a quote!
 	}
 
 

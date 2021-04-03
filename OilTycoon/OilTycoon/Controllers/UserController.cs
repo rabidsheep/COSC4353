@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using OilTycoon.Auth;
 using OilTycoon.Database.ef;
 using OilTycoon.Database.interfaces;
 using System.Collections.Generic;
@@ -13,11 +15,13 @@ namespace OilTycoon.Controllers
     {
         // Here we list the types of "repositories" or services/classes we might want to access in this context
         IUserRepository _userRepo;
+        ILoginService _loginService;
 
         // Here we actually ask for an instance of them and save a reference to them
-        public UserController(IUserRepository userRepo)
+        public UserController(IUserRepository userRepo, ILoginService loginService)
         {
             _userRepo = userRepo;
+            _loginService = loginService;
         }
 
         [HttpGet]
@@ -37,6 +41,13 @@ namespace OilTycoon.Controllers
             // `default(User)` or `default(string)` or other datatype and using the debugger to see what value is returned.
 
             return results.FirstOrDefault();
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<User> GetMyself()
+        {
+            return await _loginService.GetUser(this.User);
         }
     }
 }
