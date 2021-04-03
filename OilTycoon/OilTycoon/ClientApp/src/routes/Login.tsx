@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Component } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import { TitleArea } from '../components/Reusables';
 import { AuthClient } from '../generated'

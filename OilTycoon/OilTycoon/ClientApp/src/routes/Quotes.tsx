@@ -1,7 +1,10 @@
 import { Navigation, TitleArea } from '../components/Reusables';
+import React, { useState, useEffect } from 'react';
 
 // HTML for user homepage
 export function Quotes() {
+
+
 	const getQuote = (e: any) => {
 		e.preventDefault();
 		let data = {
