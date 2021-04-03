@@ -113,7 +113,6 @@ namespace OilTycoon.Database.ef
 
             modelBuilder.Entity<FuelQuote>(entity =>
             {
-<<<<<<< Updated upstream
                 entity.HasKey(e => e.Id)
                     .HasName("PK_Id");
 
@@ -121,13 +120,11 @@ namespace OilTycoon.Database.ef
                     .IsRequired();
 
                 entity.Property(e => e.Quantity)
-=======
->>>>>>> Stashed changes
+
                     .IsRequired();
 
                 entity.Property(e => e.DeliveryDate)
                     .IsRequired();
-<<<<<<< Updated upstream
 
                 entity.Property(e => e.Price)
                     .IsRequired();
@@ -149,8 +146,6 @@ namespace OilTycoon.Database.ef
 
                 entity.Property(e => e.ZipCode)
                     .IsRequired();
-=======
->>>>>>> Stashed changes
             });
 
             OnModelCreatingPartial(modelBuilder);
