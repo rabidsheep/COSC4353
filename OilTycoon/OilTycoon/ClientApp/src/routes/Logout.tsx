@@ -3,4 +3,6 @@
     console.log("storage cleared");
 
     window.location.href = '/login';
+
+    return 0;
 }
