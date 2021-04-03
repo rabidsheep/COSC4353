@@ -205,6 +205,144 @@ export class AuthClient extends AuthorizedApiBase {
     }
 }
 
+export class FuelQuoteClient extends AuthorizedApiBase {
+    private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
+        super();
+        this.http = http ? http : <any>window;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * @return Success
+     */
+    getAll(): Promise<FuelQuote[]> {
+        let url_ = this.baseUrl + "/api/FuelQuote/GetAll";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ = <RequestInit>{
+            method: "GET",
+            headers: {
+                "Accept": "text/plain"
+            }
+        };
+
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processGetAll(_response));
+        });
+    }
+
+    protected processGetAll(response: Response): Promise<FuelQuote[]> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(FuelQuote.fromJS(item));
+            }
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<FuelQuote[]>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getById(id: number | undefined): Promise<FuelQuote> {
+        let url_ = this.baseUrl + "/api/FuelQuote/GetById?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ = <RequestInit>{
+            method: "GET",
+            headers: {
+                "Accept": "text/plain"
+            }
+        };
+
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processGetById(_response));
+        });
+    }
+
+    protected processGetById(response: Response): Promise<FuelQuote> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = FuelQuote.fromJS(resultData200);
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<FuelQuote>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    insertSampleQuote(): Promise<FuelQuote> {
+        let url_ = this.baseUrl + "/api/FuelQuote/InsertSampleQuote";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ = <RequestInit>{
+            method: "GET",
+            headers: {
+                "Accept": "text/plain"
+            }
+        };
+
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.transformResult(url_, _response, (_response: Response) => this.processInsertSampleQuote(_response));
+        });
+    }
+
+    protected processInsertSampleQuote(response: Response): Promise<FuelQuote> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = FuelQuote.fromJS(resultData200);
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<FuelQuote>(<any>null);
+    }
+}
+
 export class UserClient extends AuthorizedApiBase {
     private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
     private baseUrl: string;
@@ -304,6 +442,50 @@ export class UserClient extends AuthorizedApiBase {
     }
 }
 
+export class FuelQuote implements IFuelQuote {
+    id?: number;
+    gallonsRequested?: number;
+    deliveryDate?: Date;
+
+    constructor(data?: IFuelQuote) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.gallonsRequested = _data["gallonsRequested"];
+            this.deliveryDate = _data["deliveryDate"] ? new Date(_data["deliveryDate"].toString()) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): FuelQuote {
+        data = typeof data === 'object' ? data : {};
+        let result = new FuelQuote();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["gallonsRequested"] = this.gallonsRequested;
+        data["deliveryDate"] = this.deliveryDate ? this.deliveryDate.toISOString() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IFuelQuote {
+    id?: number;
+    gallonsRequested?: number;
+    deliveryDate?: Date;
+}
+
 export class RegistrationDetails implements IRegistrationDetails {
     user?: User;
     rawPassword?: string | undefined;
@@ -347,6 +529,12 @@ export interface IRegistrationDetails {
 export class User implements IUser {
     id?: number;
     userName?: string | undefined;
+    fullName?: string | undefined;
+    address1?: string | undefined;
+    address2?: string | undefined;
+    city?: string | undefined;
+    state?: string | undefined;
+    zipCode?: string | undefined;
     passwordHash?: string | undefined;
     passwordSalt?: string | undefined;
     roles?: string[] | undefined;
@@ -364,6 +552,12 @@ export class User implements IUser {
         if (_data) {
             this.id = _data["id"];
             this.userName = _data["userName"];
+            this.fullName = _data["fullName"];
+            this.address1 = _data["address1"];
+            this.address2 = _data["address2"];
+            this.city = _data["city"];
+            this.state = _data["state"];
+            this.zipCode = _data["zipCode"];
             this.passwordHash = _data["passwordHash"];
             this.passwordSalt = _data["passwordSalt"];
             if (Array.isArray(_data["roles"])) {
@@ -385,6 +579,12 @@ export class User implements IUser {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["userName"] = this.userName;
+        data["fullName"] = this.fullName;
+        data["address1"] = this.address1;
+        data["address2"] = this.address2;
+        data["city"] = this.city;
+        data["state"] = this.state;
+        data["zipCode"] = this.zipCode;
         data["passwordHash"] = this.passwordHash;
         data["passwordSalt"] = this.passwordSalt;
         if (Array.isArray(this.roles)) {
@@ -399,6 +599,12 @@ export class User implements IUser {
 export interface IUser {
     id?: number;
     userName?: string | undefined;
+    fullName?: string | undefined;
+    address1?: string | undefined;
+    address2?: string | undefined;
+    city?: string | undefined;
+    state?: string | undefined;
+    zipCode?: string | undefined;
     passwordHash?: string | undefined;
     passwordSalt?: string | undefined;
     roles?: string[] | undefined;
