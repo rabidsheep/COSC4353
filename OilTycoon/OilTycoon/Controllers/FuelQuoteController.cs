@@ -52,7 +52,7 @@ namespace OilTycoon.Controllers
             quote.Id = 0;
             quote.UserId = currentUser.Id;
             quote.Price = GetSuggestedPrice(); // no fooling us with spoofed prices from the client ;)
-            quote.TotalDue = quote.Quantity * quote.Price;
+            quote.TotalDue = Math.Round(quote.Quantity * quote.Price, 2);
             // TODO: use "currentUser" to set address data
             quote.Address1 = "123 Fake St"; // could be `currentUser.Address1`
             quote.Address2 = "Suite 42069"; // could be `currentUser.Address2`
