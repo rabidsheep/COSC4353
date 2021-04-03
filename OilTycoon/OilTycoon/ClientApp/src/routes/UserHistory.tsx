@@ -52,7 +52,7 @@ export function UserHistoryRow(props: { quote: FuelQuote }) {
 		<tr>
 			<td>{id}</td>
 			<td>{quantity}</td>
-			<td>{`${address1}, ${address2}, ${city}, ${state}, ${zipCode}`}</td>
+			<td><small>{`${address1}, ${address2}, ${city}, ${state}, ${zipCode}`}</small></td>
 			<td>{deliveryDate}</td>
 			<td>{price}</td>
 			<td>{totalDue}</td>
