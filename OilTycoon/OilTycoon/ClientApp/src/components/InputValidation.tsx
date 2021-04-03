@@ -1,4 +1,5 @@
-﻿export const handleChange = (e: any) => {
+﻿
+export const handleChange = (e: any) => {
     if (e.currentTarget.value.includes(" ")) {
         return false;
     }
