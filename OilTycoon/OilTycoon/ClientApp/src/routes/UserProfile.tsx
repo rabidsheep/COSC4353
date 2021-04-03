@@ -14,13 +14,11 @@ export function UserProfile() {
 		let data = {
 			firstName: e.target.elements.firstName.value,
 			lastName: e.target.elements.lastName.value,
-			address1: e.target.elements.add1.value,
-			address2: e.target.elements.add2.value,
-			city: e.target.elements.city.value,
-			state: e.target.elements.state.value,
-			zip: e.target.elements.zip.value,
+			company: e.target.elements.company.value,
+			email: e.target.elements.email.value,
+			phone: e.target.elements.phone.value,
 			currentPw: e.target.elements.currentPw.value,
-			newPw: e.target.elements.newPw.value
+			newPw: e.target.elements.newPw.value,
 		}
 
 		// check to make sure passwords match
@@ -59,24 +57,16 @@ export function UserProfile() {
 							<td><input name="lastName" type="text" /></td>
 						</tr>
 						<tr>
-							<td><label>Address 1: </label></td>
-							<td><input name="add1" type="text" /></td>
+							<td><label>Company: </label></td>
+							<td><input name="company" type="text" /></td>
 						</tr>
 						<tr>
-							<td><label>Address 2: </label></td>
-							<td><input name="add2" type="text" /></td>
+							<td><label>E-mail: </label></td>
+							<td><input name="email" type="text" /></td>
 						</tr>
 						<tr>
-							<td><label>City: </label></td>
-							<td><input name="city" type="text" /></td>
-						</tr>
-						<tr>
-							<td><label>State: </label></td>
-							<td><input name="state" type="text" /></td>
-						</tr>
-						<tr>
-							<td><label>Zip Code: </label></td>
-							<td><input name="zip" pattern="[0-9]{5}" type="text" /></td>
+							<td><label>Phone: </label></td>
+							<td><input name="phone" pattern="[0-9]{10}" type="text" /></td>
 						</tr>
 						<tr>
 							<td><label>Current Password: </label></td>
