@@ -687,6 +687,13 @@ export interface IRegistrationDetails {
 export class User implements IUser {
     id?: number;
     userName?: string | undefined;
+    firstName?: string | undefined;
+    lastName?: string | undefined;
+    address1?: string | undefined;
+    address2?: string | undefined;
+    city?: string | undefined;
+    state?: string | undefined;
+    zipCode?: string | undefined;
     passwordHash?: string | undefined;
     passwordSalt?: string | undefined;
     roles?: string[] | undefined;
@@ -704,6 +711,13 @@ export class User implements IUser {
         if (_data) {
             this.id = _data["id"];
             this.userName = _data["userName"];
+            this.firstName = _data["firstName"];
+            this.lastName = _data["lastName"];
+            this.address1 = _data["address1"];
+            this.address2 = _data["address2"];
+            this.city = _data["city"];
+            this.state = _data["state"];
+            this.zipCode = _data["zipCode"];
             this.passwordHash = _data["passwordHash"];
             this.passwordSalt = _data["passwordSalt"];
             if (Array.isArray(_data["roles"])) {
@@ -725,6 +739,13 @@ export class User implements IUser {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["userName"] = this.userName;
+        data["firstName"] = this.firstName;
+        data["lastName"] = this.lastName;
+        data["address1"] = this.address1;
+        data["address2"] = this.address2;
+        data["city"] = this.city;
+        data["state"] = this.state;
+        data["zipCode"] = this.zipCode;
         data["passwordHash"] = this.passwordHash;
         data["passwordSalt"] = this.passwordSalt;
         if (Array.isArray(this.roles)) {
@@ -739,6 +760,13 @@ export class User implements IUser {
 export interface IUser {
     id?: number;
     userName?: string | undefined;
+    firstName?: string | undefined;
+    lastName?: string | undefined;
+    address1?: string | undefined;
+    address2?: string | undefined;
+    city?: string | undefined;
+    state?: string | undefined;
+    zipCode?: string | undefined;
     passwordHash?: string | undefined;
     passwordSalt?: string | undefined;
     roles?: string[] | undefined;
