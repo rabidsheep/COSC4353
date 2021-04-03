@@ -54,7 +54,6 @@ namespace OilTycoon.Database
             // These are transient because it doesn't matter
             services.AddTransient<IUnitOfWork, BaseUnitOfWork>();
             services.AddTransient<IUserRepository, UserRepository>();
-            services.AddTransient<IFuelQuoteRepository, FuelQuoteRepository>();
 
             // And now we're done
             return services;
