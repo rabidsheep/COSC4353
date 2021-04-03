@@ -17,19 +17,19 @@ export function Quotes() {
 	const [deliveryDate, setDeliveryDate] = useState('');
 
 	useEffect(() => {
-		setTimeout(() => {
-			// Simulate loading the address data
-			//alert('hi')
-			setAddress1('123 Fake St');
-			setAddress2('Suite 42069');
-			setCity('Houston');
-			setState('TX');
-			setZip('77000');
-		}, 1000);
+		// Simulate loading the address data
+		// TODO: load address data for the currently logged in user!
+
+		setAddress1('123 Fake St');
+		setAddress2('Suite 42069');
+		setCity('Houston');
+		setState('TX');
+		setZip('77000');
 	}, [])
 
-	const getQuote = (e: any) => {
+	const getQuote = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		//alert((e.target as any).checkValidity());
 		let data = {
 			qty: quantity,
 			add1: address1,
@@ -41,6 +41,8 @@ export function Quotes() {
 
 		// check to make sure data is being filled out properly
 		console.log(data);
+
+		// TODO: submit a quote!
 	}
 
 
@@ -62,7 +64,7 @@ export function Quotes() {
 									<table className="fields">
 										<tbody>
 											<tr>
-												<td><input name="gallons" type="number" value={quantity} onChange={(e) => setQuantity(parseInt(e.target.value))} pattern="[0-9]" required /></td>
+												<td><input name="gallons" type="number" value={quantity} onChange={(e) => setQuantity(parseInt(e.target.value))} pattern="[0-9]" min="0" /></td>
 											</tr>
 										</tbody>
 									</table>
@@ -187,7 +189,7 @@ export function Quotes() {
 												<td><strong>${roundTo2Decimals(quantity * price)}</strong></td>
 											</tr>
 											<tr className="form-button">
-												<td colSpan={3}><input type="submit" onClick={getQuote} value="Get Quote" /></td>
+												<td colSpan={3}><input type="submit" value="Get Quote" /></td>
 											</tr>
 										</tbody>
 									</table>
