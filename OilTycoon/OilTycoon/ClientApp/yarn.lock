@@ -6118,10 +6118,10 @@
   "resolved" "https://registry.npmjs.org/is-string/-/is-string-1.0.5.tgz"
   "version" "1.0.5"
 
-"is-svg@^3.0.0":
+"is-svg@^4.2.2":
   "integrity" "sha512-gi4iHK53LR2ujhLVVj+37Ykh9GLqYHX6JOVXbLAucaG/Cqw9xwdFOjDM2qeifLs1sF1npXXFvDu0r5HNgCMrzQ=="
-  "resolved" "https://registry.npmjs.org/is-svg/-/is-svg-3.0.0.tgz"
-  "version" "3.0.0"
+  "resolved" "https://registry.npmjs.org/is-svg/-/is-svg-4.2.2.tgz"
+  "version" "4.2.2"
   dependencies:
     "html-comment-regex" "^1.1.0"
 
