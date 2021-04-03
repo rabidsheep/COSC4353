@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { TitleArea } from '../components/Reusables';
 import { AuthClient } from '../generated'
 
@@ -7,8 +7,6 @@ export function Login(props: any) {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-
-    const history = useHistory();
 
     const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -24,7 +22,7 @@ export function Login(props: any) {
             console.log('you\'re logged in!');
             localStorage.setItem('jwt', jwt);
 
-            history.push('/quote');
+            window.location.href = '/quote';
         }
     }
 
