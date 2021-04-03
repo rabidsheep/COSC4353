@@ -54,11 +54,11 @@ namespace OilTycoon.Controllers
             quote.Price = GetSuggestedPrice(); // no fooling us with spoofed prices from the client ;)
             quote.TotalDue = quote.Quantity * quote.Price;
             // TODO: use "currentUser" to set address data
-            quote.Address1 = "123 Fake St";
-            quote.Address2 = "Suite 42069";
-            quote.City = "Houston";
-            quote.State = "TX";
-            quote.ZipCode = "77000";
+            quote.Address1 = "123 Fake St"; // could be `currentUser.Address1`
+            quote.Address2 = "Suite 42069"; // could be `currentUser.Address2`
+            quote.City = "Houston"; // could be `currentUser.City`
+            quote.State = "TX"; // could be `currentUser.State`
+            quote.ZipCode = "77000"; // could be `currentUser.ZipCode`
 
             var result = _FuelQuoteRepo.Add(quote);
             await _FuelQuoteRepo.Save();

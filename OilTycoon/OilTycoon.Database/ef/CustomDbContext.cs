@@ -96,6 +96,21 @@ namespace OilTycoon.Database.ef
 
                 entity.Property(e => e.TotalDue)
                     .IsRequired();
+
+                entity.Property(e => e.Address1)
+                    .IsRequired();
+
+                entity.Property(e => e.Address2)
+                    .IsRequired();
+
+                entity.Property(e => e.City)
+                    .IsRequired();
+
+                entity.Property(e => e.State)
+                    .IsRequired();
+
+                entity.Property(e => e.ZipCode)
+                    .IsRequired();
             });
 
             OnModelCreatingPartial(modelBuilder);
