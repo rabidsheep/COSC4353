@@ -8,6 +8,7 @@ export function UserHistory() {
 	const [quotes, setQuotes] = useState<FuelQuote[]>([]);
 
 	useEffect(() => {
+		// Load quotes and put them here
 		const fetchData = async () => {
 			const fuelClient = new FuelQuoteClient();
 			const quotes = await fuelClient.getAllForCurrentUser();

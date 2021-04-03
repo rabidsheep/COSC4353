@@ -19,7 +19,7 @@ export function Quotes() {
 
 	useEffect(() => {
 		const fetchData = async () => {
-			// Simulate loading the address data
+			// Load the address data and current suggested price
 			const fuelClient = new FuelQuoteClient();
 			const userClient = new UserClient();
 
@@ -28,22 +28,19 @@ export function Quotes() {
 			const myself = await userClient.getMyself();
 
 			// TODO: use "myself" to set address data
-
-			setAddress1('123 Fake St');
-			setAddress2('Suite 42069');
-			setCity('Houston');
-			setState('TX');
-			setZip('77000');
+			setAddress1('123 Fake St'); // could be `setAddress1(myself.address1)`
+			setAddress2('Suite 42069'); // could be `setAddress2(myself.address2)`
+			setCity('Houston'); // could be `setCity(myself.city)`
+			setState('TX'); // could be `setState(myself.state)`
+			setZip('77000'); // could be `setZip(myself.zip)`
 		}
 		fetchData();
 	}, []);
 
 	const getQuote = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		
-		const fuelClient = new FuelQuoteClient();
-		
 		try {
+			const fuelClient = new FuelQuoteClient();
 			const fuelQuote = await fuelClient.submitQuote(new FuelQuote({
 				quantity: quantity,
 				deliveryDate: new Date(deliveryDate).toLocaleDateString(),
@@ -54,22 +51,6 @@ export function Quotes() {
 		catch(err) {
 			alert('quote failed to submit!');
 		}
-		
-
-		// let data = {
-		// 	qty: quantity,
-		// 	add1: address1,
-		// 	add2: address2,
-		// 	city: city,
-		// 	state: state,
-		// 	zip: zip
-		// }
-
-
-
-		// check to make sure data is being filled out properly
-		//console.log(data);
-
 	}
 
 
