@@ -18,7 +18,7 @@ export const AuthenticatedRoute = ({ component: C, appProps, ...rest }: any) => 
         <Route {...rest} render={props =>
             appProps.isAuthenticated
                 ? <C {...props} {...appProps} />
-                : <Redirect to={`/`} />}
+                : <Redirect to={`/login`} />}
         />
     );
 }
