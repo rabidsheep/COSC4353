@@ -572,7 +572,7 @@ export class FuelQuote implements IFuelQuote {
     id?: number;
     userId?: number;
     quantity?: number;
-    deliveryDate?: Date;
+    deliveryDate?: string | undefined;
     price?: number;
     totalDue?: number;
 
@@ -590,7 +590,7 @@ export class FuelQuote implements IFuelQuote {
             this.id = _data["id"];
             this.userId = _data["userId"];
             this.quantity = _data["quantity"];
-            this.deliveryDate = _data["deliveryDate"] ? new Date(_data["deliveryDate"].toString()) : <any>undefined;
+            this.deliveryDate = _data["deliveryDate"];
             this.price = _data["price"];
             this.totalDue = _data["totalDue"];
         }
@@ -608,7 +608,7 @@ export class FuelQuote implements IFuelQuote {
         data["id"] = this.id;
         data["userId"] = this.userId;
         data["quantity"] = this.quantity;
-        data["deliveryDate"] = this.deliveryDate ? this.deliveryDate.toISOString() : <any>undefined;
+        data["deliveryDate"] = this.deliveryDate;
         data["price"] = this.price;
         data["totalDue"] = this.totalDue;
         return data; 
@@ -619,7 +619,7 @@ export interface IFuelQuote {
     id?: number;
     userId?: number;
     quantity?: number;
-    deliveryDate?: Date;
+    deliveryDate?: string | undefined;
     price?: number;
     totalDue?: number;
 }

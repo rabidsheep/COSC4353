@@ -11,7 +11,7 @@ namespace OilTycoon.Database.ef
         public int Id { get; set; }
         public int UserId { get; set; }
         public int Quantity { get; set; }
-        public DateTime DeliveryDate { get; set; }
+        public string DeliveryDate { get; set; }
         public double Price { get; set; }
         public double TotalDue { get; set; }
     }

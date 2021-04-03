@@ -461,7 +461,7 @@
           },
           "deliveryDate": {
             "type": "string",
-            "format": "date-time"
+            "nullable": true
           },
           "price": {
             "type": "number",

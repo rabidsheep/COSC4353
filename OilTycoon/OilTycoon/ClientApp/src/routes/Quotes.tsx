@@ -46,7 +46,7 @@ export function Quotes() {
 		try {
 			const fuelQuote = await fuelClient.submitQuote(new FuelQuote({
 				quantity: quantity,
-				deliveryDate: new Date(deliveryDate),
+				deliveryDate: new Date(deliveryDate).toLocaleDateString(),
 			}));
 			console.log(fuelQuote);
 		}
