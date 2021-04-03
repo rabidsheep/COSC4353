@@ -50,7 +50,7 @@ export function UserHistory() {
 export function UserHistoryRow(props: { quote: FuelQuote }) {
 	const { id, quantity, deliveryDate, price, totalDue, address1, address2, city, state, zipCode } = props.quote;
 	let addStr = address1 + ', ';
-	if (address2 != '' && address2 != ' ' && address2 != null) {
+	if (address2 !== '' && address2 !== ' ' && address2 != null) {
 		addStr += address2 + ', ';
 	}
 	addStr += city + ', ' + state + ' ' + zipCode;
