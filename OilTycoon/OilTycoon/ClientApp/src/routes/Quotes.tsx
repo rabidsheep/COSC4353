@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Navigation, TitleArea } from '../components/Reusables';
 
 // HTML for user homepage
@@ -9,20 +9,38 @@ export function Quotes() {
 
 	const [quantity, setQuantity] = useState(0);
 	const [price, setPrice] = useState(generateRandomGasPrice());
+	const [address1, setAddress1] = useState('');
+	const [address2, setAddress2] = useState('');
+	const [city, setCity] = useState('');
+	const [state, setState] = useState('');
+	const [zip, setZip] = useState('');
+	const [deliveryDate, setDeliveryDate] = useState('');
+
+	useEffect(() => {
+		setTimeout(() => {
+			// Simulate loading the address data
+			//alert('hi')
+			setAddress1('123 Fake St');
+			setAddress2('Suite 42069');
+			setCity('Houston');
+			setState('TX');
+			setZip('77000');
+		}, 1000);
+	}, [])
 
 	const getQuote = (e: any) => {
 		e.preventDefault();
-		// let data = {
-		// 	qty: e.target.elements.gallons.value,
-		// 	add1: e.target.elements.add1.value,
-		// 	add2: e.target.elements.add2.value,
-		// 	city: e.target.elements.city.value,
-		// 	state: e.target.elements.state.value,
-		// 	zip: e.targe.t.elements.zip.value
-		// }
+		let data = {
+			qty: quantity,
+			add1: address1,
+			add2: address2,
+			city: city,
+			state: state,
+			zip: zip
+		}
 
 		// check to make sure data is being filled out properly
-		//console.log(data);
+		console.log(data);
 	}
 
 
@@ -56,21 +74,21 @@ export function Quotes() {
 									<table className="fields">
 										<tbody>
 											<tr className="input">
-												<td colSpan={3}><input name="add1" type="text" max="100" required /></td>
+												<td colSpan={3}><input name="add1" type="text" max="100" value={address1} disabled required /></td>
 											</tr>
 											<tr className="labels">
 												<td colSpan={3}><label data-name="add1">Address 1</label></td>
 											</tr>
 											<tr className="input">
-												<td colSpan={3}><input name="add2" type="text" max="100" required /></td>
+												<td colSpan={3}><input name="add2" type="text" max="100" value={address2} disabled required /></td>
 											</tr>
 											<tr className="labels">
 												<td colSpan={3}><label data-name="add2">Address 2</label></td>
 											</tr>
 											<tr className="input">
-												<td><input name="city" type="text" max="100" required /></td>
+												<td><input name="city" type="text" max="100" value={city} disabled required /></td>
 												<td>
-													<select name="state" className="dropdown" defaultValue={""} required>
+													<select name="state" className="dropdown" value={state} disabled required>
 														<option value="">&nbsp;</option>
 														<option value="AL">AL</option>
 														<option value="AK">AK</option>
@@ -125,7 +143,7 @@ export function Quotes() {
 														<option value="WY">WY</option>
 													</select>
 												</td>
-												<td><input name="zip" type="text" pattern="[0-9]{4}" required /></td>
+												<td><input name="zip" type="text" pattern="[0-9]{4}" value={zip} disabled required /></td>
 											</tr>
 											<tr className="labels">
 												<td><label>City</label></td>
@@ -142,7 +160,7 @@ export function Quotes() {
 									<table className="fields">
 										<tbody>
 											<tr>
-												<td><input name="delivery_date" type="date" required /></td>
+												<td><input name="delivery_date" type="date" value={deliveryDate} onChange={(e) => setDeliveryDate(e.target.value)} required /></td>
 											</tr>
 										</tbody>
 									</table>
@@ -160,10 +178,7 @@ export function Quotes() {
 									</table>
 								</td>
 							</tr>
-							<tr>
-								<hr />
-							</tr>
-							<tr>
+							<tr id="total">
 								<td className="section">Total Amount Due</td>
 								<td className="inputs">
 									<table className="fields">
