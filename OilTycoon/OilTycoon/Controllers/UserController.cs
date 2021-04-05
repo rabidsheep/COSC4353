@@ -66,6 +66,13 @@ namespace OilTycoon.Controllers
                 // retrieve current user id
                 var userId = (await _loginService.GetUser(this.User)).Id;
 
+                // update password if newPw is new
+                if (newPw != null && newPw != " " && newPw != "" && newPw != currentPw)
+                {
+                    // This does some database reads/writes, so we do it before retrieving "userData" so that its not stale
+                    await _loginService.ChangePassword(userId, newPw);
+                }
+
                 // retrieve fields that can be modified
                 var userData = (await _userRepo.GetWhere(e => e.Id == userId)).FirstOrDefault();
 
@@ -76,15 +83,7 @@ namespace OilTycoon.Controllers
                 userData.Address2 = newInfo.Address2;
                 userData.City = newInfo.City;
                 userData.State = newInfo.State;
-                userData.ZipCode = newInfo.ZipCode;
-
-                // update password if newPw is new
-                // TODO: make it so generatesalt and computehash are still private members of login services
-                if (newPw != null && newPw != " " && newPw != "" && newPw != currentPw)
-                {
-                    userData.PasswordSalt = _loginService.GenerateSalt();
-                    userData.PasswordHash = _loginService.ComputeHash(newPw, userData.PasswordSalt);
-                }
+                userData.ZipCode = newInfo.ZipCode;                
 
                 await _userRepo.Update(userData);
                 return userData;
