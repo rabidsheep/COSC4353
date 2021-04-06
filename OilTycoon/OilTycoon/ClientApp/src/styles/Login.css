@@ -4,7 +4,7 @@
 
 #login {
     width: 500px;
-    height: 250px;
+    height: 300px;
     margin: 0 auto;
     margin-top: 10%;
     box-shadow: 10px 10px #888888;
@@ -23,4 +23,11 @@
 #login #login-wrapper {
     width: 50%;
     margin: 0 auto;
+}
+
+#login-wrapper .errors {
+    font-size: 14px;
+    font-style: italic;
+    font-weight: bold;
+    color: red;
 }

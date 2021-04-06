@@ -12,19 +12,25 @@ function DataFetcher() {
 
 	useEffect(() => {
 		const fetchData = async () => {
-			// Load the address data and current suggested price
-			const fuelClient = new FuelQuoteClient();
-			const userClient = new UserClient();
+			try {
+				// Load the address data and current suggested price
+				const fuelClient = new FuelQuoteClient();
+				const userClient = new UserClient();
 
-			ctx.setFieldValue('price', await fuelClient.getSuggestedPrice(), true);
+				ctx.setFieldValue('price', await fuelClient.getSuggestedPrice(), true);
 
-			const myself = await userClient.getMyself();
+				const myself = await userClient.getMyself();
 
-			ctx.setFieldValue('address1', myself.address1!, true);
-			ctx.setFieldValue('address2', myself.address2!, true);
-			ctx.setFieldValue('city', myself.city!, true);
-			ctx.setFieldValue('state', myself.state!, true);
-			ctx.setFieldValue('zip', myself.zipCode!, true);
+				ctx.setFieldValue('address1', myself.address1!, true);
+				ctx.setFieldValue('address2', myself.address2!, true);
+				ctx.setFieldValue('city', myself.city!, true);
+				ctx.setFieldValue('state', myself.state!, true);
+				ctx.setFieldValue('zip', myself.zipCode!, true);
+			}
+			catch(err) {
+				console.warn('there was an issue prefilling the form fields')
+				console.error(err);
+			}
 		}
 		fetchData();
 	}, []);
@@ -38,7 +44,7 @@ export function Quotes() {
 	const roundTo2Decimals = (x: number) => (Math.round(x * 100) / 100).toFixed(2);
 	const generateRandomGasPrice = () => roundTo2Decimals(Math.random() * 2 + 1);
 
-	interface MyFields {
+	interface QuoteFields {
 		quantity: number;
 		price: number;
 		address1: string;
@@ -49,7 +55,7 @@ export function Quotes() {
 		delivery_date: string;
 	}
 
-	const onSubmit = async (values: MyFields, actions: FormikHelpers<MyFields>) => {
+	const onSubmit = async (values: QuoteFields, actions: FormikHelpers<QuoteFields>) => {
 		actions.setSubmitting(true);
 		try {
 			const fuelClient = new FuelQuoteClient();
@@ -77,7 +83,7 @@ export function Quotes() {
 				<div className="ptitle">
 					<p className="ptitle">Get Your Free Quote</p>
 				</div>
-				<Formik<MyFields>
+				<Formik<QuoteFields>
 					initialValues={{
 						quantity: 0,
 						price: 0,

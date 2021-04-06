@@ -25,3 +25,10 @@
     margin: 0 auto;
     padding-bottom: 20px;
 }
+
+#register-wrapper .errors {
+    font-size: 14px;
+    font-style: italic;
+    font-weight: bold;
+    color: red;
+}

@@ -1,8 +1,16 @@
-﻿export function Logout() {
-    localStorage.clear();
-    console.log("storage cleared");
+﻿import React, { useEffect } from 'react';
+import { useHistory } from "react-router";
 
-    window.location.href = '/login';
+export function Logout() {
+    const history = useHistory();
 
-    return null;
+    useEffect(() => {
+        localStorage.clear();
+        console.log("storage cleared");
+
+        //window.location.href = '/login';
+        history.push('/login');
+    }, []);
+
+    return <p>Logging out</p>;
 }
