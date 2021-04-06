@@ -90,7 +90,7 @@ namespace OilTycoon.Auth
 
         public async Task<User> RegisterUser(User registrant, string rawPassword)
         {
-            if (!await isUserRegistered(registrant.UserName))
+            if (!await IsUserRegistered(registrant.UserName))
             {
                 try
                 {
@@ -132,11 +132,11 @@ namespace OilTycoon.Auth
 
         // Some private helper methods
 
-        private async Task<bool> isUserRegistered(string userName) => (await _userRepo.GetWhere(e => e.UserName == userName)).Count() > 0;
+        public async Task<bool> IsUserRegistered(string userName) => (await _userRepo.GetWhere(e => e.UserName == userName)).Count() > 0;
 
         private async Task<User> LoginUser(string userName, string rawPassword)
         {
-            if (await isUserRegistered(userName))
+            if (await IsUserRegistered(userName))
             {
                 var entry = (await _userRepo.GetWhere(e => e.UserName == userName)).First();
                 if (entry.PasswordHash == ComputeHash(rawPassword, entry.PasswordSalt))

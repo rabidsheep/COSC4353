@@ -92,5 +92,9 @@ namespace OilTycoon.Controllers
                 return null;
             }
         }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<bool> CheckIfUsernameExists([FromQuery] string username) => await _loginService.IsUserRegistered(username);
     }
 }
