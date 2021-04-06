@@ -17,36 +17,16 @@ import { AuthenticatedRoute, UnauthenticatedRoute } from './RouteAuthentication'
 
 
 export function RoutePages() {
-
-    const [isAuthenticated, userHasAuthenticated] = useState(false);
-
-    useEffect(() => {
-        onLoad();
-    }, []);
-
-    // check session token
-    async function onLoad() {
-        try {
-            if (localStorage.getItem('jwt') == null) {
-                userHasAuthenticated(false);
-            } else {
-                userHasAuthenticated(true);
-            }
-        } catch (e) {
-            alert(e);
-        }
-    }
-
     return (
         <Router>
             <Switch>
-                <UnauthenticatedRoute path={["/", "/login"]} exact component={Login} appProps={{ isAuthenticated }} />
-                <UnauthenticatedRoute path="/register" component={Register} appProps={{ isAuthenticated }} />
-                <AuthenticatedRoute path="/quote" component={Quotes} appProps={{ isAuthenticated }} />
-                <AuthenticatedRoute path="/history" component={UserHistory} appProps={{ isAuthenticated }} />
-                <AuthenticatedRoute path="/profile" component={UserProfile} appProps={{ isAuthenticated }} />
-                <AuthenticatedRoute path="/contact" component={Contact} appProps={{ isAuthenticated }} />
-                <AuthenticatedRoute path="/logout" component={Logout} appProps={{ isAuthenticated }} />
+                <UnauthenticatedRoute path={["/", "/login"]} exact component={Login} />
+                <UnauthenticatedRoute path="/register" component={Register} />
+                <AuthenticatedRoute path="/quote" component={Quotes} />
+                <AuthenticatedRoute path="/history" component={UserHistory} />
+                <AuthenticatedRoute path="/profile" component={UserProfile} />
+                <AuthenticatedRoute path="/contact" component={Contact} />
+                <AuthenticatedRoute path="/logout" component={Logout} />
             </Switch>
         </Router>
     );
