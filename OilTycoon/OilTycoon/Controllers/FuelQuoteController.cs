@@ -51,14 +51,13 @@ namespace OilTycoon.Controllers
             quote.Quantity = Math.Abs(quote.Quantity);
             quote.Id = 0;
             quote.UserId = currentUser.Id;
-            quote.Price = GetSuggestedPrice(); // no fooling us with spoofed prices from the client ;)
+            quote.Price = await GetSuggestedPrice(quote.Quantity, currentUser.State); // no fooling us with spoofed prices from the client ;)
             quote.TotalDue = Math.Round(quote.Quantity * quote.Price, 2);
-            // TODO: use "currentUser" to set address data
-            quote.Address1 = currentUser.Address1; // could be `currentUser.Address1`
-            quote.Address2 = currentUser.Address2; // could be `currentUser.Address2`
-            quote.City = currentUser.City; // could be `currentUser.City`
-            quote.State = currentUser.State; // could be `currentUser.State`
-            quote.ZipCode = currentUser.ZipCode; // could be `currentUser.ZipCode`
+            quote.Address1 = currentUser.Address1;
+            quote.Address2 = currentUser.Address2;
+            quote.City = currentUser.City;
+            quote.State = currentUser.State;
+            quote.ZipCode = currentUser.ZipCode;
 
             var result = _FuelQuoteRepo.Add(quote);
             await _FuelQuoteRepo.Save();
@@ -67,10 +66,30 @@ namespace OilTycoon.Controllers
 
         [HttpGet]
         [Authorize]
-        public double GetSuggestedPrice()
+        public async Task<double> GetSuggestedPrice([FromQuery] int quantity, [FromQuery] string state)
         {
-            var rand = new Random(DateTime.Today.Hour);
-            return Math.Round(rand.NextDouble() * 2 + 1, 2);
+            var userId = _loginService.GetUserId(this.User);
+
+            const double current_price = 1.50;
+
+            // Location Factor = 2% for Texas, 4% for out of state.
+            double location_factor = state == "TX" ? 0.02 : 0.04;
+            // Rate History Factor = 1% if client requested fuel before, 0% if no history
+            double rate_history_factor = (await _FuelQuoteRepo.HasOrderedFuelBefore(userId)) ? 0.01 : 0.00;
+            // Gallons Requested Factor = 2% if more than 1000 Gallons, 3% if less
+            double gallons_requested_factor = quantity >= 1000 ? 0.02 : 0.03;
+            // Company Profit Factor = 10% always
+            double company_profit_factor = 0.10; // 10%
+
+            // Margin =  Current Price * (Location Factor - Rate History Factor + Gallons Requested Factor + Company Profit Factor)
+            double margin = current_price * (location_factor - rate_history_factor + gallons_requested_factor + company_profit_factor);
+
+            // Suggested Price = Current Price + Margin
+            return current_price + margin;
+
+            // Old placeholder price
+            // var rand = new Random(DateTime.Today.Hour);
+            // return Math.Round(rand.NextDouble() * 2 + 1, 2);
         }
 
         [HttpGet]

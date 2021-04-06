@@ -17,8 +17,6 @@ function DataFetcher() {
 				const fuelClient = new FuelQuoteClient();
 				const userClient = new UserClient();
 
-				ctx.setFieldValue('price', await fuelClient.getSuggestedPrice(), true);
-
 				const myself = await userClient.getMyself();
 
 				ctx.setFieldValue('address1', myself.address1!, true);
@@ -26,6 +24,8 @@ function DataFetcher() {
 				ctx.setFieldValue('city', myself.city!, true);
 				ctx.setFieldValue('state', myself.state!, true);
 				ctx.setFieldValue('zip', myself.zipCode!, true);
+
+				ctx.setFieldValue('price', await fuelClient.getSuggestedPrice(0, myself.state), true);
 			}
 			catch(err) {
 				console.warn('there was an issue prefilling the form fields')
@@ -38,22 +38,36 @@ function DataFetcher() {
 	return null;
 }
 
+function QuantityField() {
+	const { isSubmitting, setFieldValue, values } = useFormikContext<QuoteFields>();
+
+	const handleUpdate = async () => {
+		const fuelClient = new FuelQuoteClient();
+		setFieldValue('price', await fuelClient.getSuggestedPrice(values.quantity || 0, values.state || ''), true);
+	}
+
+	// We can't listen to the event "onChange" because it breaks formik for some reason, so we have to listen to alternative
+	// ways of knowing when the field has changed
+
+	return <Field name="quantity" type="number" min={0} disabled={isSubmitting} onClick={handleUpdate} onKeyUp={handleUpdate} />
+}
+
+interface QuoteFields {
+	quantity: number;
+	price: number;
+	address1: string;
+	address2: string;
+	city: string;
+	state: string;
+	zip: string;
+	delivery_date: string;
+}
+
 // Main Quote submission component
 export function Quotes() {
 
 	const roundTo2Decimals = (x: number) => (Math.round(x * 100) / 100).toFixed(2);
 	const generateRandomGasPrice = () => roundTo2Decimals(Math.random() * 2 + 1);
-
-	interface QuoteFields {
-		quantity: number;
-		price: number;
-		address1: string;
-		address2: string;
-		city: string;
-		state: string;
-		zip: string;
-		delivery_date: string;
-	}
 
 	const onSubmit = async (values: QuoteFields, actions: FormikHelpers<QuoteFields>) => {
 		actions.setSubmitting(true);
@@ -72,6 +86,8 @@ export function Quotes() {
 		}
 		actions.setSubmitting(false);
 	}
+
+	
 
 
 	return (
@@ -131,7 +147,7 @@ export function Quotes() {
 												<tbody>
 													<tr>
 														<td>
-															<Field name="quantity" type="number" min={0} disabled={isSubmitting} />
+															<QuantityField />
 														</td>
 														<td colSpan={4} className="errors">
 															{ errors.quantity ? 

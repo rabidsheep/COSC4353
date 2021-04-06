@@ -347,10 +347,20 @@ export class FuelQuoteClient extends AuthorizedApiBase {
     }
 
     /**
+     * @param quantity (optional) 
+     * @param state (optional) 
      * @return Success
      */
-    getSuggestedPrice(): Promise<number> {
-        let url_ = this.baseUrl + "/api/FuelQuote/GetSuggestedPrice";
+    getSuggestedPrice(quantity: number | undefined, state: string | undefined): Promise<number> {
+        let url_ = this.baseUrl + "/api/FuelQuote/GetSuggestedPrice?";
+        if (quantity === null)
+            throw new Error("The parameter 'quantity' cannot be null.");
+        else if (quantity !== undefined)
+            url_ += "quantity=" + encodeURIComponent("" + quantity) + "&";
+        if (state === null)
+            throw new Error("The parameter 'state' cannot be null.");
+        else if (state !== undefined)
+            url_ += "state=" + encodeURIComponent("" + state) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ = <RequestInit>{
