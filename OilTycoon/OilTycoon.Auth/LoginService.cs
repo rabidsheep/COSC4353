@@ -88,6 +88,20 @@ namespace OilTycoon.Auth
             return userData;
         }
 
+        public async Task<User> ChangePassword(string userName, string rawPassword)
+        {
+            var userData = (await _userRepo.GetWhere(e => e.UserName == userName)).FirstOrDefault();
+
+            var salt = GenerateSalt();
+            var hashed = ComputeHash(rawPassword, salt);
+
+            userData.PasswordSalt = salt;
+            userData.PasswordHash = hashed;
+
+            await _userRepo.Update(userData);
+            return userData;
+        }
+
         public async Task<User> RegisterUser(User registrant, string rawPassword)
         {
             if (!await IsUserRegistered(registrant.UserName))

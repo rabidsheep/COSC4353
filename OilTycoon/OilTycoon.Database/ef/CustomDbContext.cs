@@ -10,11 +10,11 @@ namespace OilTycoon.Database.ef
         {
             // Creates the local SQLite database if it doesn't already exist
             Database.EnsureCreated();
-            
+
             ///
             // Seed the database with a user account just for testing, so we don't have to manually recreate it ourselves
             ///
-            
+
             // first, we check if the exists already or not
             var superAdmin = Users.FirstOrDefaultAsync(e => e.UserName == "admin").GetAwaiter().GetResult();
             if (superAdmin == null)
@@ -25,6 +25,8 @@ namespace OilTycoon.Database.ef
                 {
                     Id = 1,
                     UserName = "admin",
+                    FirstName = "",
+                    LastName = "",
                     Address1 = "111 Admin St",
                     Address2 = "Suite 999",
                     City = "Nowhere",
@@ -40,7 +42,11 @@ namespace OilTycoon.Database.ef
         }
 
         // Specifies where to store the database on disk
-        protected override void OnConfiguring(DbContextOptionsBuilder options) => options.UseSqlite("Data Source=database.db");
+        protected override void OnConfiguring(DbContextOptionsBuilder options)
+        {
+            options.UseSqlite("Data Source=database.db");
+            options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+        }
 
         // Where we define the types of tables we're going to have
         // If we wanted to add more tables to the database, we would add another line below this one of similar structure

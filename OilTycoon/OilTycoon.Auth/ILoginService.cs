@@ -12,6 +12,7 @@ namespace OilTycoon.Auth
         string GetUsername(ClaimsPrincipal user);
         Task<User> GetUser(ClaimsPrincipal user);
         Task<User> ChangePassword(int userId, string rawPassword);
+        Task<User> ChangePassword(string userName, string rawPassword);
         Task<User> RegisterUser(User registrant, string rawPassword);
         Task<string> LoginUserForJWT(string userName, string rawPassword);
         Task<bool> IsUserRegistered(string userName);

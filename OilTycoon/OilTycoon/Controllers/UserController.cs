@@ -54,27 +54,30 @@ namespace OilTycoon.Controllers
         [Authorize]
         public async Task<User> UpdateUser([FromBody] UpdateDetails profileChanges)
         {
+            // retrieve current user id
+            var userName = _loginService.GetUsername(this.User);
 
             var newInfo = profileChanges.User;
             var currentPw = profileChanges.CurrentPassword;
             var newPw = profileChanges.NewPassword;
 
-            var tempJWT = await _loginService.LoginUserForJWT(newInfo.UserName, currentPw);
+            var tempJWT = await _loginService.LoginUserForJWT(userName, currentPw);
 
             if (tempJWT != null)
             {
-                // retrieve current user id
-                var userId = (await _loginService.GetUser(this.User)).Id;
+                User userData = null;
 
                 // update password if newPw is new
                 if (newPw != null && newPw != " " && newPw != "" && newPw != currentPw)
                 {
                     // This does some database reads/writes, so we do it before retrieving "userData" so that its not stale
-                    await _loginService.ChangePassword(userId, newPw);
+                    userData = await _loginService.ChangePassword(userName, newPw);
                 }
-
-                // retrieve fields that can be modified
-                var userData = (await _userRepo.GetWhere(e => e.Id == userId)).FirstOrDefault();
+                else
+                {
+                    // retrieve fields that can be modified
+                    userData = (await _userRepo.GetWhere(e => e.UserName == userName)).FirstOrDefault();
+                }
 
                 // update info
                 userData.FirstName = newInfo.FirstName;
