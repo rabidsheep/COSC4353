@@ -25,8 +25,8 @@ namespace OilTycoon.Database.ef
                 {
                     Id = 1,
                     UserName = "admin",
-                    FirstName = "",
-                    LastName = "",
+                    FirstName = "admin",
+                    LastName = "admin",
                     Address1 = "111 Admin St",
                     Address2 = "Suite 999",
                     City = "Nowhere",
