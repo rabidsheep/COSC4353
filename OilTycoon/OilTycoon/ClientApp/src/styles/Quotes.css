@@ -22,19 +22,27 @@
     font-size: 14px;
 }
 
+#quote-wrapper .errors {
+    position: fixed; /* Prevent contents from shifting layout */
+    font-size: 14px;
+    font-style: italic;
+    font-weight: bold;
+    color: red;
+}
+
 #quote-wrapper #qty, #add {
     width: 100%;
 }
 
 #quote-wrapper .fields {
-    width: 250px;
+    /* width: 250px; */
 }
 
 #quote-wrapper .fields .field, .dropdown {
         height: 20px;
  }
 
-#quote-wrapper input[name="add1"], #quote-wrapper input[name="add2"] {
+#quote-wrapper input[name="address1"], #quote-wrapper input[name="address2"] {
     width: 250px;
 }
 
@@ -46,7 +54,7 @@
     width: 120px;
 }
 
-#quote-wrapper input[name="gallons"], .dropdown {
+#quote-wrapper input[name="quantity"], .dropdown {
     width: 50px;
 }
 
