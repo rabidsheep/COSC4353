@@ -38,11 +38,11 @@ body {
 	height: 100%;
 }
 
-	#logged-in #navigation a {
-		display: table-cell;
-		width: 20%;
-		vertical-align: middle;
-	}
+#logged-in #navigation a {
+	display: table-cell;
+	width: 20%;
+	vertical-align: middle;
+}
 
 #logged-in #main {
 	background-color: #eaf4f4;
@@ -56,4 +56,18 @@ body {
 #history-table {
 	width: 100%;
 	text-align: center;
+}
+
+#profile-wrapper .errors {
+	font-size: 14px;
+    font-style: italic;
+    font-weight: bold;
+    color: red;
+}
+
+#profile-wrapper .hints {
+	font-size: 14px;
+    font-style: italic;
+    font-weight: bold;
+    color: #444;
 }
