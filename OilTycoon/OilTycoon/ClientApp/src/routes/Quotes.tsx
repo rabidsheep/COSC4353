@@ -5,6 +5,8 @@ import * as Yup from 'yup';
 import { Navigation, TitleArea } from '../components/Reusables';
 import { FuelQuote, FuelQuoteClient, UserClient } from '../generated';
 
+// A child component is necessary to use the "useFormikContext" hook
+// With that hook, we can populate the form with server data
 function DataFetcher() {
 	const ctx = useFormikContext();
 
@@ -15,20 +17,14 @@ function DataFetcher() {
 			const userClient = new UserClient();
 
 			ctx.setFieldValue('price', await fuelClient.getSuggestedPrice(), true);
-			//setPrice(await fuelClient.getSuggestedPrice());
 
 			const myself = await userClient.getMyself();
 
 			ctx.setFieldValue('address1', myself.address1!, true);
-			//setAddress1(myself.address1!); // could be `setAddress1(myself.address1)`
 			ctx.setFieldValue('address2', myself.address2!, true);
-			//setAddress2(myself.address2!); // could be `setAddress2(myself.address2)`
 			ctx.setFieldValue('city', myself.city!, true);
-			//setCity(myself.city!); // could be `setCity(myself.city)`
 			ctx.setFieldValue('state', myself.state!, true);
-			//setState(myself.state!); // could be `setState(myself.state)`
 			ctx.setFieldValue('zip', myself.zipCode!, true);
-			//setZip(myself.zipCode!); // could be `setZip(myself.zip)`
 		}
 		fetchData();
 	}, []);
@@ -36,55 +32,11 @@ function DataFetcher() {
 	return null;
 }
 
-// HTML for user homepage
+// Main Quote submission component
 export function Quotes() {
 
 	const roundTo2Decimals = (x: number) => (Math.round(x * 100) / 100).toFixed(2);
 	const generateRandomGasPrice = () => roundTo2Decimals(Math.random() * 2 + 1);
-
-	// const [quantity, setQuantity] = useState(0);
-	// const [price, setPrice] = useState(0);
-	// const [address1, setAddress1] = useState('');
-	// const [address2, setAddress2] = useState('');
-	// const [city, setCity] = useState('');
-	// const [state, setState] = useState('');
-	// const [zip, setZip] = useState('');
-	// const [deliveryDate, setDeliveryDate] = useState('');
-
-	// useEffect(() => {
-	// 	const fetchData = async () => {
-	// 		// Load the address data and current suggested price
-	// 		const fuelClient = new FuelQuoteClient();
-	// 		const userClient = new UserClient();
-
-	// 		setPrice(await fuelClient.getSuggestedPrice());
-
-	// 		const myself = await userClient.getMyself();
-
-	// 		setAddress1(myself.address1!); // could be `setAddress1(myself.address1)`
-	// 		setAddress2(myself.address2!); // could be `setAddress2(myself.address2)`
-	// 		setCity(myself.city!); // could be `setCity(myself.city)`
-	// 		setState(myself.state!); // could be `setState(myself.state)`
-	// 		setZip(myself.zipCode!); // could be `setZip(myself.zip)`
-	// 	}
-	// 	fetchData();
-	// }, []);
-
-	// const getQuote = async (e: React.FormEvent<HTMLFormElement>) => {
-	// 	e.preventDefault();
-	// 	try {
-	// 		const fuelClient = new FuelQuoteClient();
-	// 		const fuelQuote = await fuelClient.submitQuote(new FuelQuote({
-	// 			quantity: quantity,
-	// 			deliveryDate: new Date(deliveryDate).toLocaleDateString(),
-	// 		}));
-	// 		console.log(fuelQuote);
-	// 		alert('quote submitted!');
-	// 	}
-	// 	catch (err) {
-	// 		alert('quote failed to submit!');
-	// 	}
-	// }
 
 	interface MyFields {
 		quantity: number;
@@ -98,7 +50,21 @@ export function Quotes() {
 	}
 
 	const onSubmit = async (values: MyFields, actions: FormikHelpers<MyFields>) => {
-		//
+		actions.setSubmitting(true);
+		try {
+			const fuelClient = new FuelQuoteClient();
+			const fuelQuote = await fuelClient.submitQuote(new FuelQuote({
+				quantity: values.quantity,
+				deliveryDate: new Date(values.delivery_date).toLocaleDateString(),
+			}));
+			console.log(fuelQuote);
+			alert('quote submitted!');
+			actions.resetForm();
+		}
+		catch (err) {
+			alert('quote failed to submit!');
+		}
+		actions.setSubmitting(false);
 	}
 
 
@@ -159,8 +125,7 @@ export function Quotes() {
 												<tbody>
 													<tr>
 														<td>
-															<Field name="quantity" type="number" min={0} />
-															{/* <input name="gallons" type="number" value={quantity} onChange={(e) => setQuantity(parseInt(e.target.value))} pattern="[0-9]" min="0" /> */}
+															<Field name="quantity" type="number" min={0} disabled={isSubmitting} />
 														</td>
 														<td colSpan={4} className="errors">
 															{ errors.quantity ? 
@@ -180,7 +145,6 @@ export function Quotes() {
 													<tr className="input">
 														<td colSpan={3}>
 															<Field name="address1" type="text" disabled />
-															{/* <input name="add1" type="text" max="100" value={address1} disabled required /> */}
 														</td>
 														<td colSpan={4} className="errors">
 															{ errors.address1 ? 
@@ -194,7 +158,6 @@ export function Quotes() {
 													<tr className="input">
 														<td colSpan={3}>
 															<Field name="address2" type="text" disabled />
-															{/* <input name="add2" type="text" max="100" value={address2} disabled required /> */}
 														</td>
 														<td colSpan={4} className="errors">
 															{ errors.address2 ? 
@@ -208,7 +171,6 @@ export function Quotes() {
 													<tr className="input">
 														<td>
 															<Field name="city" type="text" disabled />
-															{/* <input name="city" type="text" max="100" value={city} disabled required /> */}
 														</td>
 														<td>
 															<Field as="select" name="state" className="dropdown" disabled>
@@ -270,7 +232,6 @@ export function Quotes() {
 														</td>
 														<td>
 															<Field name="zip" type="text" disabled />
-															{/* <input name="zip" type="text" pattern="[0-9]{4}" value={zip} disabled required /> */}
 														</td>
 													</tr>
 													<tr className="labels">
@@ -304,8 +265,7 @@ export function Quotes() {
 												<tbody>
 													<tr>
 														<td>
-															<Field name="delivery_date" type="date" />
-															{/* <input name="delivery_date" type="date" value={deliveryDate} onChange={(e) => setDeliveryDate(e.target.value)} required /> */}
+															<Field name="delivery_date" type="date" disabled={isSubmitting} />
 														</td>
 														<td colSpan={4} className="errors">
 															{ errors.delivery_date ? 
