@@ -1,34 +1,34 @@
 ﻿body {
-    background-color: #f6fff8;
+	background-color: #f6fff8;
 }
 
 #register {
-    width: 500px;
-    height: 250px;
-    margin: 0 auto;
-    margin-top: 10%;
-    box-shadow: 10px 10px #888888;
-    margin-bottom: 50px;
-    border: 1px solid;
-    display: table;
-    text-align: center;
+	width: 500px;
+	height: 250px;
+	margin: 0 auto;
+	margin-top: 10%;
+	box-shadow: 10px 10px #888888;
+	margin-bottom: 50px;
+	border: 1px solid;
+	display: table;
+	text-align: center;
 }
 
 /* title */
 #register #logo {
-    font-size: 40px;
+	font-size: 40px;
 }
 
 /* for centering login inputs */
 #register #register-wrapper {
-    width: 52%;
-    margin: 0 auto;
-    padding-bottom: 20px;
+	width: 52%;
+	margin: 0 auto;
+	padding-bottom: 20px;
 }
 
 #register-wrapper .errors {
-    font-size: 14px;
-    font-style: italic;
-    font-weight: bold;
-    color: red;
+	font-size: 14px;
+	font-style: italic;
+	font-weight: bold;
+	color: red;
 }

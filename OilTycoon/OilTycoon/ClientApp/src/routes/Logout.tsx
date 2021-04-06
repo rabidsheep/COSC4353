@@ -2,15 +2,15 @@
 import { useHistory } from "react-router";
 
 export function Logout() {
-    const history = useHistory();
+	const history = useHistory();
 
-    useEffect(() => {
-        localStorage.clear();
-        console.log("storage cleared");
+	useEffect(() => {
+		localStorage.clear();
+		console.log("storage cleared");
 
-        //window.location.href = '/login';
-        history.push('/login');
-    }, []);
+		//window.location.href = '/login';
+		history.push('/login');
+	}, []);
 
-    return <p>Logging out</p>;
+	return <p>Logging out</p>;
 }

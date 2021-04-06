@@ -41,13 +41,13 @@ export function UserProfile() {
 
 	interface ProfileFields {
 		username: string;
-        first_name: string;
-        last_name: string;
-        address1: string;
-        address2: string;
-        city: string;
-        state: string;
-        zip: string;
+		first_name: string;
+		last_name: string;
+		address1: string;
+		address2: string;
+		city: string;
+		state: string;
+		zip: string;
 		current_password: string;
 		new_password: string;
 	}
@@ -102,9 +102,9 @@ export function UserProfile() {
 					<p className="ptitle">Your User Profile</p>
 				</div>
 				<Formik<ProfileFields>
-                    initialValues={{
-                        username: '',
-                        first_name: '',
+					initialValues={{
+						username: '',
+						first_name: '',
 						last_name: '',
 						address1: '',
 						address2: '',
@@ -113,16 +113,16 @@ export function UserProfile() {
 						zip: '',
 						current_password: '',
 						new_password: ''
-                    }}
-                    validationSchema={Yup.object({
-                        username: Yup.string(), // cant change username anyway
-                        first_name: Yup.string()
+					}}
+					validationSchema={Yup.object({
+						username: Yup.string(), // cant change username anyway
+						first_name: Yup.string()
 							.max(100, 'Must be less than 100 characters')
 							.required('First name must be provided'),
-                        last_name: Yup.string()
+						last_name: Yup.string()
 							.max(100, 'Must be less than 100 characters')
 							.required('Last name must be provided'),
-                        address1: Yup.string()
+						address1: Yup.string()
 							.max(100, 'Must be less than 100 characters')
 							.required('Address must be provided'),
 						address2: Yup.string()
@@ -139,10 +139,10 @@ export function UserProfile() {
 							.required('Zip-code must be provided.'),
 						current_password: Yup.string()
 							.required('Current password is required to make changes to profile'),
-                    })}
-                    enableReinitialize
-                    onSubmit={onSubmit}
-                    >
+					})}
+					enableReinitialize
+					onSubmit={onSubmit}
+					>
 					{({ isSubmitting, isValid, errors, values }) => (
 						<Form>
 							<DataFetcher />
@@ -161,12 +161,12 @@ export function UserProfile() {
 										</td>
 									</tr>
 									{ errors.first_name ? 													
-                                    <tr>
-                                        <td colSpan={2} className="errors">
-                                            {errors.first_name}
-                                        </td>
-                                    </tr>
-                                    : <></> }
+									<tr>
+										<td colSpan={2} className="errors">
+											{errors.first_name}
+										</td>
+									</tr>
+									: <></> }
 									<tr>
 										<td>Last Name: </td>
 										<td>
@@ -174,12 +174,12 @@ export function UserProfile() {
 										</td>
 									</tr>
 									{ errors.last_name ? 													
-                                    <tr>
-                                        <td colSpan={2} className="errors">
-                                            {errors.last_name}
-                                        </td>
-                                    </tr>
-                                    : <></> }
+									<tr>
+										<td colSpan={2} className="errors">
+											{errors.last_name}
+										</td>
+									</tr>
+									: <></> }
 									<tr>
 										<td>Address 1: </td>
 										<td>
@@ -187,12 +187,12 @@ export function UserProfile() {
 										</td>
 									</tr>
 									{ errors.address1 ? 													
-                                    <tr>
-                                        <td colSpan={2} className="errors">
-                                            {errors.address1}
-                                        </td>
-                                    </tr>
-                                    : <></> }
+									<tr>
+										<td colSpan={2} className="errors">
+											{errors.address1}
+										</td>
+									</tr>
+									: <></> }
 									<tr>
 										<td>Address 2: </td>
 										<td>
@@ -200,12 +200,12 @@ export function UserProfile() {
 										</td>
 									</tr>
 									{ errors.address2 ? 													
-                                    <tr>
-                                        <td colSpan={2} className="errors">
-                                            {errors.address2}
-                                        </td>
-                                    </tr>
-                                    : <></> }
+									<tr>
+										<td colSpan={2} className="errors">
+											{errors.address2}
+										</td>
+									</tr>
+									: <></> }
 									<tr>
 										<td>City: </td>
 										<td>
@@ -213,78 +213,78 @@ export function UserProfile() {
 										</td>
 									</tr>
 									{ errors.city ? 													
-                                    <tr>
-                                        <td colSpan={2} className="errors">
-                                            {errors.city}
-                                        </td>
-                                    </tr>
-                                    : <></> }
+									<tr>
+										<td colSpan={2} className="errors">
+											{errors.city}
+										</td>
+									</tr>
+									: <></> }
 									<tr>
 										<td>State: </td>
 										<td>
 											<Field as="select" name="state" className="dropdown" disabled={isSubmitting}>
-                                                <option value="">&nbsp;</option>
-                                                <option value="AL">AL</option>
-                                                <option value="AK">AK</option>
-                                                <option value="AZ">AZ</option>
-                                                <option value="AR">AR</option>
-                                                <option value="CA">CA</option>
-                                                <option value="CO">CO</option>
-                                                <option value="CT">CT</option>
-                                                <option value="DE">DE</option>
-                                                <option value="DC">DC</option>
-                                                <option value="FL">FL</option>
-                                                <option value="GA">GA</option>
-                                                <option value="HI">HI</option>
-                                                <option value="ID">ID</option>
-                                                <option value="IL">IL</option>
-                                                <option value="IN">IN</option>
-                                                <option value="IA">IA</option>
-                                                <option value="KS">KS</option>
-                                                <option value="KY">KY</option>
-                                                <option value="LA">LA</option>
-                                                <option value="ME">ME</option>
-                                                <option value="MD">MD</option>
-                                                <option value="MA">MA</option>
-                                                <option value="MI">MI</option>
-                                                <option value="MN">MN</option>
-                                                <option value="MS">MS</option>
-                                                <option value="MO">MO</option>
-                                                <option value="MT">MT</option>
-                                                <option value="NE">NE</option>
-                                                <option value="NV">NV</option>
-                                                <option value="NH">NH</option>
-                                                <option value="NJ">NJ</option>
-                                                <option value="NM">NM</option>
-                                                <option value="NY">NY</option>
-                                                <option value="NC">NC</option>
-                                                <option value="ND">ND</option>
-                                                <option value="OH">OH</option>
-                                                <option value="OK">OK</option>
-                                                <option value="OR">OR</option>
-                                                <option value="PA">PA</option>
-                                                <option value="RI">RI</option>
-                                                <option value="SC">SC</option>
-                                                <option value="SD">SD</option>
-                                                <option value="TN">TN</option>
-                                                <option value="TX">TX</option>
-                                                <option value="UT">UT</option>
-                                                <option value="VT">VT</option>
-                                                <option value="VA">VA</option>
-                                                <option value="WA">WA</option>
-                                                <option value="WV">WV</option>
-                                                <option value="WI">WI</option>
-                                                <option value="WY">WY</option>
-                                            </Field>
+												<option value="">&nbsp;</option>
+												<option value="AL">AL</option>
+												<option value="AK">AK</option>
+												<option value="AZ">AZ</option>
+												<option value="AR">AR</option>
+												<option value="CA">CA</option>
+												<option value="CO">CO</option>
+												<option value="CT">CT</option>
+												<option value="DE">DE</option>
+												<option value="DC">DC</option>
+												<option value="FL">FL</option>
+												<option value="GA">GA</option>
+												<option value="HI">HI</option>
+												<option value="ID">ID</option>
+												<option value="IL">IL</option>
+												<option value="IN">IN</option>
+												<option value="IA">IA</option>
+												<option value="KS">KS</option>
+												<option value="KY">KY</option>
+												<option value="LA">LA</option>
+												<option value="ME">ME</option>
+												<option value="MD">MD</option>
+												<option value="MA">MA</option>
+												<option value="MI">MI</option>
+												<option value="MN">MN</option>
+												<option value="MS">MS</option>
+												<option value="MO">MO</option>
+												<option value="MT">MT</option>
+												<option value="NE">NE</option>
+												<option value="NV">NV</option>
+												<option value="NH">NH</option>
+												<option value="NJ">NJ</option>
+												<option value="NM">NM</option>
+												<option value="NY">NY</option>
+												<option value="NC">NC</option>
+												<option value="ND">ND</option>
+												<option value="OH">OH</option>
+												<option value="OK">OK</option>
+												<option value="OR">OR</option>
+												<option value="PA">PA</option>
+												<option value="RI">RI</option>
+												<option value="SC">SC</option>
+												<option value="SD">SD</option>
+												<option value="TN">TN</option>
+												<option value="TX">TX</option>
+												<option value="UT">UT</option>
+												<option value="VT">VT</option>
+												<option value="VA">VA</option>
+												<option value="WA">WA</option>
+												<option value="WV">WV</option>
+												<option value="WI">WI</option>
+												<option value="WY">WY</option>
+											</Field>
 										</td>
 									</tr>
 									{ errors.state ? 													
-                                    <tr>
-                                        <td colSpan={2} className="errors">
-                                            {errors.state}
-                                        </td>
-                                    </tr>
-                                    : <></> }
+									<tr>
+										<td colSpan={2} className="errors">
+											{errors.state}
+										</td>
+									</tr>
+									: <></> }
 									<tr>
 										<td>Zip Code: </td>
 										<td>
@@ -292,12 +292,12 @@ export function UserProfile() {
 										</td>
 									</tr>
 									{ errors.zip ? 													
-                                    <tr>
-                                        <td colSpan={2} className="errors">
-                                            {errors.zip}
-                                        </td>
-                                    </tr>
-                                    : <></> }
+									<tr>
+										<td colSpan={2} className="errors">
+											{errors.zip}
+										</td>
+									</tr>
+									: <></> }
 									<tr>
 										<td>Current Password: </td>
 										<td>
@@ -305,23 +305,23 @@ export function UserProfile() {
 										</td>
 									</tr>
 									{ errors.current_password ? 													
-                                    <tr>
-                                        <td colSpan={2} className="errors">
-                                            {errors.current_password}
-                                        </td>
-                                    </tr>
-                                    : <></> }
+									<tr>
+										<td colSpan={2} className="errors">
+											{errors.current_password}
+										</td>
+									</tr>
+									: <></> }
 									<tr>
 										<td>New Password: </td>
 										<td>
 											<Field name="new_password" type="password" disabled={isSubmitting} />
 										</td>
 									</tr>													
-                                    <tr>
-                                        <td colSpan={2} className="hints">
-                                            {values.new_password === "" || values.new_password === " " ? `Password won't be changed` : 'Password will be updated!'}
-                                        </td>
-                                    </tr>
+									<tr>
+										<td colSpan={2} className="hints">
+											{values.new_password === "" || values.new_password === " " ? `Password won't be changed` : 'Password will be updated!'}
+										</td>
+									</tr>
 								</tbody>
 							</table>
 							<button type="submit" disabled={isSubmitting || !isValid}>Update</button>
