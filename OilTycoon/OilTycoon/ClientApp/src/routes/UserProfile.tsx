@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { Field, Form, Formik, FormikHelpers, useFormikContext } from 'formik';
 import * as Yup from 'yup';
-import { handleKeyDown, toPascal } from '../components/InputValidation';
+import { toPascal } from '../components/InputValidation';
 import { Navigation, TitleArea } from '../components/Reusables';
 import { UserClient, UpdateDetails, User } from '../generated';
+import '../styles/UserForm.css';
 
 // A child component is necessary to use the "useFormikContext" hook
 // With that hook, we can populate the form with server data
@@ -99,130 +100,104 @@ export function UserProfile() {
 			<Navigation />
 			<div id="main">
 				<div className="ptitle">
-					<p className="ptitle">Your User Profile</p>
+					<h2>Your User Profile</h2>
 				</div>
-				<Formik<ProfileFields>
-					initialValues={{
-						username: '',
-						first_name: '',
-						last_name: '',
-						address1: '',
-						address2: '',
-						city: '',
-						state: '',
-						zip: '',
-						current_password: '',
-						new_password: ''
-					}}
-					validationSchema={Yup.object({
-						username: Yup.string(), // cant change username anyway
-						first_name: Yup.string()
-							.max(100, 'Must be less than 100 characters')
-							.required('First name must be provided'),
-						last_name: Yup.string()
-							.max(100, 'Must be less than 100 characters')
-							.required('Last name must be provided'),
-						address1: Yup.string()
-							.max(100, 'Must be less than 100 characters')
-							.required('Address must be provided'),
-						address2: Yup.string()
-							.max(100, 'Must be less than 100 characters'),
-						city: Yup.string()
-							.max(100, 'Must be less than 100 characters')
-							.required('City must be provided'),
-						state: Yup.string()
-							.max(100, 'Must be less than 100 characters')
-							.required('State must be provided'),
-						zip: Yup.string()
-							.max(100, 'Must be less than 100 characters')
-							.matches(/[0-9]{5}/, 'Must be a 5 digit number')
-							.required('Zip-code must be provided.'),
-						current_password: Yup.string()
-							.required('Current password is required to make changes to profile'),
-					})}
-					enableReinitialize
-					onSubmit={onSubmit}
-					>
-					{({ isSubmitting, isValid, errors, values }) => (
-						<Form>
-							<DataFetcher />
-							<table id="profile-wrapper">
-								<tbody>
-									<tr>
-										<td>Username: </td>
-										<td>
-											<Field name="username" type="text" disabled />
-										</td>
-									</tr>
-									<tr>
-										<td>First Name: </td>
-										<td>
-											<Field name="first_name" type="text" disabled={isSubmitting} />
-										</td>
-									</tr>
-									{ errors.first_name ? 													
-									<tr>
-										<td colSpan={2} className="errors">
-											{errors.first_name}
-										</td>
-									</tr>
-									: <></> }
-									<tr>
-										<td>Last Name: </td>
-										<td>
-											<Field name="last_name" type="text" disabled={isSubmitting} />
-										</td>
-									</tr>
-									{ errors.last_name ? 													
-									<tr>
-										<td colSpan={2} className="errors">
-											{errors.last_name}
-										</td>
-									</tr>
-									: <></> }
-									<tr>
-										<td>Address 1: </td>
-										<td>
-											<Field name="address1" type="text" disabled={isSubmitting} />
-										</td>
-									</tr>
-									{ errors.address1 ? 													
-									<tr>
-										<td colSpan={2} className="errors">
-											{errors.address1}
-										</td>
-									</tr>
-									: <></> }
-									<tr>
-										<td>Address 2: </td>
-										<td>
-											<Field name="address2" type="text" disabled={isSubmitting} />
-										</td>
-									</tr>
-									{ errors.address2 ? 													
-									<tr>
-										<td colSpan={2} className="errors">
-											{errors.address2}
-										</td>
-									</tr>
-									: <></> }
-									<tr>
-										<td>City: </td>
-										<td>
-											<Field name="city" type="text" disabled={isSubmitting} />
-										</td>
-									</tr>
-									{ errors.city ? 													
-									<tr>
-										<td colSpan={2} className="errors">
-											{errors.city}
-										</td>
-									</tr>
-									: <></> }
-									<tr>
-										<td>State: </td>
-										<td>
-											<Field as="select" name="state" className="dropdown" disabled={isSubmitting}>
+
+				<div id="profile-wrapper">
+					<Formik<ProfileFields>
+						initialValues={{
+							username: '',
+							first_name: '',
+							last_name: '',
+							address1: '',
+							address2: '',
+							city: '',
+							state: '',
+							zip: '',
+							current_password: '',
+							new_password: ''
+						}}
+						validationSchema={Yup.object({
+							username: Yup.string(), // cant change username anyway
+							first_name: Yup.string()
+								.max(100, 'Must be less than 100 characters')
+								.required('First name must be provided'),
+							last_name: Yup.string()
+								.max(100, 'Must be less than 100 characters')
+								.required('Last name must be provided'),
+							address1: Yup.string()
+								.max(100, 'Must be less than 100 characters')
+								.required('Address must be provided'),
+							address2: Yup.string()
+								.max(100, 'Must be less than 100 characters'),
+							city: Yup.string()
+								.max(100, 'Must be less than 100 characters')
+								.required('City must be provided'),
+							state: Yup.string()
+								.max(100, 'Must be less than 100 characters')
+								.required('State must be provided'),
+							zip: Yup.string()
+								.max(100, 'Must be less than 100 characters')
+								.matches(/[0-9]{5}/, 'Must be a 5 digit number')
+								.required('Zip-code must be provided.'),
+							current_password: Yup.string()
+								.required('Current password is required to make changes to profile'),
+						})}
+						enableReinitialize
+						onSubmit={onSubmit}
+						>
+						{({ isSubmitting, isValid, errors, touched, values }) => (
+							<Form className="userform">
+								<DataFetcher />
+								<div className="field-row">
+									<div id="uname" className="field floating-label">
+										<Field name="username" className="floating-label" placeholder="username" type="text" disabled={isSubmitting} />
+										<label className="floating-label" htmlFor="username">Username</label>
+										{errors.username && touched.username ? <span className="errors">{errors.username}</span> : <></>}
+									</div>
+								</div>
+
+								<div className="field-row">
+									<div className="grid-container fnln">
+										<div id="fname" className="field floating-label">
+											<Field name="first_name" className="floating-label" placeholder="First name" type="text" disabled={isSubmitting} />
+											<label className="floating-label" htmlFor="first_name">First Name</label>
+											{errors.first_name && touched.first_name ? <span className="errors">{errors.first_name}</span> : <></>}
+										</div>
+
+										<div id="lname" className="field floating-label">
+											<Field name="last_name" className="floating-label" placeholder="Last name" type="text" disabled={isSubmitting} />
+											<label className="floating-label" htmlFor="last_name">Last Name</label>
+											{errors.last_name && touched.last_name ? <span className="errors">{errors.last_name}</span> : <></>}
+										</div>
+									</div>
+								</div> 
+
+								<div className="field-row">
+									<div id="add1" className="field floating-label">
+										<Field name="address1" className="floating-label" placeholder="Address 1" type="text" disabled={isSubmitting} />
+										<label className="floating-label" htmlFor="address1">Address 1</label>
+										{errors.address1 && touched.address1 ? <span className="errors">{errors.address1}</span> : <></>}
+									</div>
+								</div>
+	
+								<div className="field-row">
+									<div id="add2" className="field floating-label">
+										<Field name="address2" className="floating-label" placeholder="Address 2" type="text" disabled={isSubmitting} />
+										<label className="floating-label" htmlFor="address2">Address 2 (Optional)</label>
+										{errors.address2 && touched.address2 ? <span className="errors">{errors.address2}</span> : <></>}
+									</div>
+								</div>
+
+								<div className="field-row">
+									<div className="grid-container csz">
+										<div id="city" className="field floating-label">
+											<Field name="city" className="floating-label" placeholder="City" type="text" disabled={isSubmitting} />
+											<label className="floating-label" htmlFor="city">City</label>
+										</div>
+
+										<div id="state" className="field floating-label">
+											<Field as="select" name="state" className="floating-label">
 												<option value="">&nbsp;</option>
 												<option value="AL">AL</option>
 												<option value="AK">AK</option>
@@ -276,58 +251,40 @@ export function UserProfile() {
 												<option value="WI">WI</option>
 												<option value="WY">WY</option>
 											</Field>
-										</td>
-									</tr>
-									{ errors.state ? 													
-									<tr>
-										<td colSpan={2} className="errors">
-											{errors.state}
-										</td>
-									</tr>
-									: <></> }
-									<tr>
-										<td>Zip Code: </td>
-										<td>
-											<Field name="zip" type="text" disabled={isSubmitting} />
-										</td>
-									</tr>
-									{ errors.zip ? 													
-									<tr>
-										<td colSpan={2} className="errors">
-											{errors.zip}
-										</td>
-									</tr>
-									: <></> }
-									<tr>
-										<td>Current Password: </td>
-										<td>
-											<Field name="current_password" type="password" disabled={isSubmitting} />
-										</td>
-									</tr>
-									{ errors.current_password ? 													
-									<tr>
-										<td colSpan={2} className="errors">
-											{errors.current_password}
-										</td>
-									</tr>
-									: <></> }
-									<tr>
-										<td>New Password: </td>
-										<td>
-											<Field name="new_password" type="password" disabled={isSubmitting} />
-										</td>
-									</tr>													
-									<tr>
-										<td colSpan={2} className="hints">
+											<label className="floating-label" htmlFor="state">State</label>
+										</div>
+
+										<div id="zip" className="field floating-label">
+											<Field name="zip" className="floating-label" placeholder="zip" type="text" disabled={isSubmitting} />
+											<label className="floating-label" htmlFor="zip">Zip Code</label>
+										</div>
+									</div>
+								</div>
+
+								<div className="field-row">
+									<div id="current-pw" className="field floating-label">
+										<Field name="current_password" className="floating-label" placeholder="Current password" type="password" disabled={isSubmitting} />
+										<label htmlFor="current_password" className="floating-label">Current Password</label>
+									</div>
+								</div>
+
+								<div className="field-row">
+									<div id="new-pw" className="field floating-label">
+										<Field name="new_password" className="floating-label" placeholder="New password" type="password" disabled={isSubmitting} />
+										<label htmlFor="new_password" className="floating-label">New Password</label>
+									</div>
+
+									<div className="hints">
 											{values.new_password === "" || values.new_password === " " ? `Password won't be changed` : 'Password will be updated!'}
-										</td>
-									</tr>
-								</tbody>
-							</table>
-							<button type="submit" disabled={isSubmitting || !isValid}>Update</button>
-						</Form>
-					)}
-				</Formik>
+									</div>
+								</div>
+								<div className="button-area">
+									<button type="submit" disabled={isSubmitting || !isValid}>Update</button>
+								</div>
+							</Form>
+						)}
+					</Formik>
+				</div>
 			</div>
 		</div>
 	);

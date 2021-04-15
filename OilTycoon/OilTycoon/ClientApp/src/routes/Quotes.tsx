@@ -119,7 +119,7 @@ export function Quotes() {
 							.required('Delivery date must be provided')
 					})}
 					onSubmit={onSubmit}>
-					{({ isSubmitting, isValid, errors, values }) => (
+					{({ isSubmitting, isValid, errors, touched, values }) => (
 						<Form>
 							<DataFetcher />
 							<table id="quote-wrapper">
@@ -134,7 +134,7 @@ export function Quotes() {
 															<Field name="quantity" type="number" min={0} disabled={isSubmitting} />
 														</td>
 														<td colSpan={4} className="errors">
-															{ errors.quantity ? 
+															{ errors.quantity && touched.quantity ? 
 															<label>{errors.quantity}</label>
 															: <></> }
 														</td>
@@ -153,7 +153,7 @@ export function Quotes() {
 															<Field name="address1" type="text" disabled />
 														</td>
 														<td colSpan={4} className="errors">
-															{ errors.address1 ? 
+															{ errors.address1 && touched.address1 ? 
 															<label>{errors.address1}</label>
 															: <></> }
 														</td>
@@ -166,7 +166,7 @@ export function Quotes() {
 															<Field name="address2" type="text" disabled />
 														</td>
 														<td colSpan={4} className="errors">
-															{ errors.address2 ? 
+															{ errors.address2 && touched.address2 ? 
 															<label>{errors.address2}</label>
 															: <></> }
 														</td>
@@ -247,15 +247,15 @@ export function Quotes() {
 													</tr>
 													<tr>
 														<td colSpan={3} className="errors">
-															{ errors.city ? 
+															{ errors.city && touched.city ? 
 															<label>{errors.city}</label>
 															: <></> }
 															&nbsp;
-															{ errors.state ? 
+															{ errors.state && touched.state ? 
 															<label>{errors.state}</label>
 															: <></> }
 															&nbsp;
-															{ errors.zip ? 
+															{ errors.zip && touched.zip ? 
 															<label>{errors.zip}</label>
 															: <></> }
 														</td>

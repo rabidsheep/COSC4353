@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import './styles/Home.css';
-import './styles/Login.css';
 import './styles/Quotes.css';
 
 import { Login } from './routes/Login';
@@ -14,7 +13,6 @@ import { Contact } from './routes/Contact';
 import { Logout } from './routes/Logout';
 
 import { AuthenticatedRoute, UnauthenticatedRoute } from './RouteAuthentication'
-
 
 export function RoutePages() {
 	return (

@@ -1,0 +1,181 @@
+﻿html, body, body > div {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+}
+
+body {
+	background-color: #CCC;
+
+}
+
+#register.body-wrapper {
+	min-width: 700px;
+	display: flex;
+	flex-direction: row;
+	height: 100%;
+	width: 100%;
+}
+
+#register .flex-container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	height: 100%;
+}
+
+/* left-side css */
+	#register .flex-container.main-flex {
+		flex: 2;
+	}
+
+/* right-side css */
+	#register .flex-container.register-flex {
+		flex: 1%;
+		justify-content: flex-end;
+		height: 100%;
+		max-width: 550px;
+	}
+
+#register .register-area {
+	height: 100%;
+	border-right: 1px solid #000;
+	background-color: #c5c1c0;
+	width: 100%;
+}
+
+.sticky-wrapper {
+	height: 100%;
+	width: 100%;
+	overflow-y: auto;
+	overflow-x: hidden;
+	position: sticky;
+	top: 5%;
+	background-color: inherit;
+	background-position: center bottom;
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+
+/* title */
+#register #logo {
+	height: 100px;
+	background-image: linear-gradient(to bottom, rgba(247,206,62,1), rgba(255,0,0,0));
+	width: 100%;
+	padding: 8% 0;
+}
+
+#register #logo h3 {
+	font-size: 60px;
+	text-align: center;
+	margin-top: 0px;
+}
+
+/* registration form css */
+#register #register-form {
+	width: 450px;
+	height: 55%;
+	margin: auto;
+}
+
+#register-wrapper {
+	width: 100%;
+	margin: 8% 0;
+}
+
+#register .field-row {
+	width: 100%;
+	margin-bottom: 40px;
+}
+
+#register .grid-container.fnln {
+	display: grid;
+	grid-template-columns: 215px 215px;
+	grid-column-gap: 20px;
+}
+
+#register .grid-container.csz {
+	display: grid;
+	grid-template-columns: 220px 70px 120px;
+	grid-column-gap: 20px;
+	position: relative;
+}
+
+#register .field {
+	position: relative;
+}
+
+#register input.floating-label.error {
+	border-bottom: 1px solid red;
+}
+
+#register input.floating-label {
+	margin: 0;
+	width: 100%;
+	height: 30px;
+	font-size: 18px;
+	background: transparent;
+	border: none;
+	border-bottom: 1px solid gold;
+	z-index: 1;
+	position: relative;
+	transition: all 0.3s;
+}
+
+	#register input.floating-label:focus {
+		outline: none;
+	}
+
+	#register input.floating-label::placeholder {
+		opacity: 0;
+	}
+
+		#register input.floating-label:focus + label, #register input.floating-label:not(:placeholder-shown) + label {
+			transform: scale(0.85) translateY(-20px) translateX(-20px);
+		}
+
+#register input.floating-label + label {
+	position: absolute;
+	transition: all 0.3s;
+	font-size: 18px;
+	left: 0;
+}
+
+/* error message css */
+.error {
+	position: relative;
+}
+
+#register .errors {
+	font-size: 14px;
+	font-style: italic;
+	font-weight: bold;
+	color: red;
+	margin-top: 5px;
+	position: absolute;
+	left: 0;
+	bottom: -20px;
+}
+
+/* button css */
+#register .button-area {
+	height: 100px;
+	text-align: center;
+	margin: auto;
+}
+
+#register button {
+	background-color: #f7ce3e;
+	font-size: 20px;
+	border: none;
+	border-radius: 25px;
+	width: 120px;
+	height: 40px;
+	transition: all 0.3s;
+	text-transform: lowercase;
+	margin-right: 20px;
+}
+
+#register button:hover {
+	background-color: #ffe073;
+}

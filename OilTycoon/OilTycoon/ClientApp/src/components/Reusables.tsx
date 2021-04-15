@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
+/* nav bar */
 export function Navigation() {
 	return (
 		<div id="navigation-wrapper">
@@ -15,10 +16,16 @@ export function Navigation() {
 	);
 }
 
+/* title area */
 export function TitleArea() {
-	return (
-		<div id="logo">
-			<p>Title</p>
-		</div>
-	)
+	return <div className="logo"><h3>Title</h3></div>
+}
+
+/* function to transform strings to pascalcase -
+ every word has first letter capitalized */
+export const toPascal = (s: any) => {
+	return s.replace(/\w\S*/g,
+		function (t: any) {
+			return t.charAt(0).toUpperCase() + t.substr(1).toLowerCase();
+		});
 }

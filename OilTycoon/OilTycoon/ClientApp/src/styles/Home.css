@@ -1,6 +1,6 @@
-body {
-	background-color: #f6fff8;
-}
+/*body {
+	background-color: #2c3531;
+}*/
 
 #logged-in {
 	display: table;
@@ -12,19 +12,23 @@ body {
 	border: 1px solid;
 }
 
-#logged-in #logo, #logged-in #main, #logged-in #navigation {
+#logged-in .logo, #logged-in #main, #logged-in #navigation {
 	display: table;
 	width: 100%;
 }
 
-#logged-in #logo {
+#logged-in .logo {
 	height: 50px;
 	background-color: #6b9080;
 }
 
-	#logged-in #logo p {
+	#logged-in .logo h3 {
 		font-size: 40px;
 		color: #cce3de;
+		text-align: center;
+	}
+
+	.ptitle h2 {
 		text-align: center;
 	}
 
