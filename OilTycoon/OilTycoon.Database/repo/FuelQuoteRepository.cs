@@ -1,5 +1,7 @@
-﻿using OilTycoon.Database.ef;
+﻿using Microsoft.EntityFrameworkCore;
+using OilTycoon.Database.ef;
 using OilTycoon.Database.interfaces;
+using System.Threading.Tasks;
 
 namespace OilTycoon.Database.repo
 {
@@ -12,5 +14,7 @@ namespace OilTycoon.Database.repo
         public FuelQuoteRepository(IUnitOfWork uow) : base(uow)
         {
         }
+
+        public async Task<bool> HasOrderedFuelBefore(int userId) => await _uow.GetWhere<FuelQuote>(e => e.UserId == userId).AnyAsync();
     }
 }

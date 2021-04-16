@@ -20,6 +20,7 @@ namespace OilTycoon.Auth
         SigningInfo _signingInfo;
 
         public static string RolesClaim = "io.github.rabidwooloo.COSC4353.roles";
+        public static string UserIdClaim = "io.github.rabidwooloo.COSC4353.userId";
 
         public LoginService(IUserRepository userRepo, SigningInfo signingInfo)
         {
@@ -51,6 +52,19 @@ namespace OilTycoon.Auth
             else
             {
                 return null;
+            }
+        }// TODO
+
+        public int GetUserId(ClaimsPrincipal user)
+        {
+            var rolesClaim = user.Claims.Where(e => e.Type == UserIdClaim).FirstOrDefault();
+            if (rolesClaim != null)
+            {
+                return JsonSerializer.Deserialize<int>(rolesClaim.Value, null);
+            }
+            else
+            {
+                return -1;
             }
         }
 
@@ -180,6 +194,7 @@ namespace OilTycoon.Auth
             {
                 new Claim(JwtRegisteredClaimNames.Sub, userInfo.UserName), // Subject
                 new Claim(RolesClaim, JsonSerializer.Serialize(userInfo.Roles, null)),
+                new Claim(UserIdClaim, $"{userInfo.Id}"),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()), // JWT ID
             };
             var token = new JwtSecurityToken(issuer: _signingInfo.Issuer, audience: _signingInfo.Audience, claims: claims, expires: DateTime.Now.AddDays(7), signingCredentials: credentials);

@@ -1,4 +1,5 @@
 ﻿using OilTycoon.Database.ef;
+using System.Threading.Tasks;
 
 namespace OilTycoon.Database.interfaces
 {
@@ -7,5 +8,6 @@ namespace OilTycoon.Database.interfaces
     public interface IFuelQuoteRepository : IRepository<FuelQuote>
     {
         // some unique functionality
+        Task<bool> HasOrderedFuelBefore(int userId);
     }
 }

@@ -9,6 +9,7 @@ namespace OilTycoon.Auth
     {
         bool HasRole(ClaimsPrincipal user, string roleName);
         IEnumerable<string> GetRoles(ClaimsPrincipal user);
+        int GetUserId(ClaimsPrincipal user);
         string GetUsername(ClaimsPrincipal user);
         Task<User> GetUser(ClaimsPrincipal user);
         Task<User> ChangePassword(int userId, string rawPassword);
