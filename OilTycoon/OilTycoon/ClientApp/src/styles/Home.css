@@ -20,17 +20,18 @@
 #logged-in .logo {
 	height: 50px;
 	background-color: #6b9080;
+	text-align: center;
 }
 
-	#logged-in .logo h3 {
-		font-size: 40px;
-		color: #cce3de;
-		text-align: center;
-	}
+#logged-in .logo h3 {
+	font-size: 40px;
+	color: #cce3de;
+	text-align: center;
+}
 
-	.ptitle h2 {
-		text-align: center;
-	}
+.ptitle h2 {
+	text-align: center;
+}
 
 #logged-in #navigation-wrapper {
 	height: 40px;

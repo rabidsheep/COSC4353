@@ -70,13 +70,14 @@ body { background-color: #CCC; }
 	background-image: linear-gradient(to bottom, rgba(247,206,62,1), rgba(255,0,0,0));
 	width: 100%;
 	padding: 8% 0;
+	text-align: center;
 }
 
-	.userform .logo h3 {
-		font-size: 60px;
-		text-align: center;
-		margin-top: 0px;
-	}
+.userform .logo h3 {
+	font-size: 60px;
+	text-align: center;
+	margin-top: 0px;
+}
 
 /* registration form css */
 #login-form, #register-form {

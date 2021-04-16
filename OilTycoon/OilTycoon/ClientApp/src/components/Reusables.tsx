@@ -1,6 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
+import wordart from '../assets/wordart.png';
+
 /* nav bar */
 export function Navigation() {
 	return (
@@ -18,7 +20,14 @@ export function Navigation() {
 
 /* title area */
 export function TitleArea() {
-	return <div className="logo"><h3>Title</h3></div>
+
+	return (
+		<div className="logo">
+			<img style={{ width: '100%', maxWidth: '300px' }} src={wordart} />
+		</div>
+	);
+
+	//return <div className="logo"><h3>Title</h3></div>
 }
 
 /* function to transform strings to pascalcase -
