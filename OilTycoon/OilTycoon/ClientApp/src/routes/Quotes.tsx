@@ -91,15 +91,22 @@ export function Quotes() {
 
 
 	return (
-		<div id="logged-in">
-			<TitleArea />
-
-			<Navigation />
-			<div id="main">
-				<div className="ptitle">
-					<p className="ptitle">Get Your Free Quote</p>
+		<div id="quotes" className="body-wrapper auth">
+			<div className="flex-container sidebar">
+				<div className="sticky-wrapper">
+					<Navigation />
 				</div>
-				<Formik<QuoteFields>
+			</div>
+
+			<div className="flex-container main">
+				<div className="main-bg"></div>
+				<div className="main">
+					<TitleArea />
+					<div className="ptitle">
+						<h2>Get Your Free Quote</h2>
+					</div>
+					<div id="quote-wrapper">
+						<Formik<QuoteFields>
 					initialValues={{
 						quantity: 0,
 						price: 0,
@@ -136,203 +143,134 @@ export function Quotes() {
 					})}
 					onSubmit={onSubmit}>
 					{({ isSubmitting, isValid, errors, touched, values }) => (
-						<Form>
-							<DataFetcher />
-							<table id="quote-wrapper">
-								<tbody>
-									<tr id="qty">
-										<td className="section">Quantity</td>
-										<td className="inputs">
-											<table className="fields">
-												<tbody>
-													<tr>
-														<td>
-															<QuantityField />
-														</td>
-														<td colSpan={4} className="errors">
-															{ errors.quantity && touched.quantity ? 
-															<label>{errors.quantity}</label>
-															: <></> }
-														</td>
-													</tr>
-												</tbody>
-											</table>
-										</td>
-									</tr>
-									<tr id="add">
-										<td className="section">Shipping Info</td>
-										<td className="inputs">
-											<table className="fields">
-												<tbody>
-													<tr className="input">
-														<td colSpan={3}>
-															<Field name="address1" type="text" disabled />
-														</td>
-														<td colSpan={4} className="errors">
-															{ errors.address1 && touched.address1 ? 
-															<label>{errors.address1}</label>
-															: <></> }
-														</td>
-													</tr>
-													<tr className="labels">
-														<td colSpan={3}><label data-name="address1">Address 1</label></td>
-													</tr>
-													<tr className="input">
-														<td colSpan={3}>
-															<Field name="address2" type="text" disabled />
-														</td>
-														<td colSpan={4} className="errors">
-															{ errors.address2 && touched.address2 ? 
-															<label>{errors.address2}</label>
-															: <></> }
-														</td>
-													</tr>
-													<tr className="labels">
-														<td colSpan={3}><label data-name="add2">Address 2</label></td>
-													</tr>
-													<tr className="input">
-														<td>
-															<Field name="city" type="text" disabled />
-														</td>
-														<td>
-															<Field as="select" name="state" className="dropdown" disabled>
-															{/* <select name="state" className="dropdown" value={state} disabled required> */}
-																<option value="">&nbsp;</option>
-																<option value="AL">AL</option>
-																<option value="AK">AK</option>
-																<option value="AZ">AZ</option>
-																<option value="AR">AR</option>
-																<option value="CA">CA</option>
-																<option value="CO">CO</option>
-																<option value="CT">CT</option>
-																<option value="DE">DE</option>
-																<option value="DC">DC</option>
-																<option value="FL">FL</option>
-																<option value="GA">GA</option>
-																<option value="HI">HI</option>
-																<option value="ID">ID</option>
-																<option value="IL">IL</option>
-																<option value="IN">IN</option>
-																<option value="IA">IA</option>
-																<option value="KS">KS</option>
-																<option value="KY">KY</option>
-																<option value="LA">LA</option>
-																<option value="ME">ME</option>
-																<option value="MD">MD</option>
-																<option value="MA">MA</option>
-																<option value="MI">MI</option>
-																<option value="MN">MN</option>
-																<option value="MS">MS</option>
-																<option value="MO">MO</option>
-																<option value="MT">MT</option>
-																<option value="NE">NE</option>
-																<option value="NV">NV</option>
-																<option value="NH">NH</option>
-																<option value="NJ">NJ</option>
-																<option value="NM">NM</option>
-																<option value="NY">NY</option>
-																<option value="NC">NC</option>
-																<option value="ND">ND</option>
-																<option value="OH">OH</option>
-																<option value="OK">OK</option>
-																<option value="OR">OR</option>
-																<option value="PA">PA</option>
-																<option value="RI">RI</option>
-																<option value="SC">SC</option>
-																<option value="SD">SD</option>
-																<option value="TN">TN</option>
-																<option value="TX">TX</option>
-																<option value="UT">UT</option>
-																<option value="VT">VT</option>
-																<option value="VA">VA</option>
-																<option value="WA">WA</option>
-																<option value="WV">WV</option>
-																<option value="WI">WI</option>
-																<option value="WY">WY</option>
-															{/* </select> */}
-															</Field>
-														</td>
-														<td>
-															<Field name="zip" type="text" disabled />
-														</td>
-													</tr>
-													<tr className="labels">
-														<td><label>City</label></td>
-														<td><label>State</label></td>
-														<td><label>ZIP</label></td>
-													</tr>
-													<tr>
-														<td colSpan={3} className="errors">
-															{ errors.city && touched.city ? 
-															<label>{errors.city}</label>
-															: <></> }
-															&nbsp;
-															{ errors.state && touched.state ? 
-															<label>{errors.state}</label>
-															: <></> }
-															&nbsp;
-															{ errors.zip && touched.zip ? 
-															<label>{errors.zip}</label>
-															: <></> }
-														</td>
-													</tr>
-												</tbody>
-											</table>
-										</td>
-									</tr>
-									<tr id="date">
-										<td className="section">Delivery Date</td>
-										<td className="inputs">
-											<table className="fields">
-												<tbody>
-													<tr>
-														<td>
-															<Field name="delivery_date" type="date" disabled={isSubmitting} />
-														</td>
-														<td colSpan={4} className="errors">
-															{ errors.delivery_date ? 
-															<label>{errors.delivery_date}</label>
-															: <></> }
-														</td>
-													</tr>
-												</tbody>
-											</table>
-										</td>
-									</tr>
-									<tr id="price">
-										<td className="section">Suggested Price</td>
-										<td className="inputs">
-											<table className="fields">
-												<tbody>
-													<tr>
-														<td><strong>${values.price} per gallon</strong></td>
-													</tr>
-												</tbody>
-											</table>
-										</td>
-									</tr>
-									<tr id="total">
-										<td className="section">Total Amount Due</td>
-										<td className="inputs">
-											<table className="fields">
-												<tbody>
-													<tr>
-														<td><strong>${roundTo2Decimals(values.quantity * values.price)}</strong></td>
-													</tr>
-													<tr className="form-button">
-														<td colSpan={3}>
-															<input type="submit" value="Get Quote" disabled={isSubmitting || !isValid} />
-														</td>
-													</tr>
-												</tbody>
-											</table>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-						</Form>
-					)}
-				</Formik>
+							<Form className="userform">
+								<DataFetcher />
+								<div className="grid">
+									<label className="section">Quantity</label>
+									<div className="inputs qty">
+										<QuantityField />
+										{errors.quantity && touched.quantity ? <span className="errors">{errors.quantity}</span> : <></>}
+									</div>
+
+									<label className="section">Shipping Info</label>
+									<div className="inputs shipping">
+										<div className="field-row">
+											<div id="add1" className="field floating-label">
+												<Field name="address1" className="floating-label" type="text" disabled />
+												<label htmlFor="address1" className="floating-label">Address 1</label>
+												{errors.address1 && touched.address1 ? <span className="errors">{errors.address1}</span> : <></>}
+											</div>
+										</div>
+
+										<div className="field-row">
+											<div id="add2" className="field floating-label">
+												<Field name="address2" className="floating-label" type="text" disabled />
+												<label htmlFor="address2" className="floating-label">Address 2</label>
+													{errors.address2 && touched.address2 ? <span className="errors">{errors.address2}</span> : <></>}
+											</div>
+										</div>
+
+										<div className="field-row">
+											<div className="grid-container csz">
+												<div id="city" className="field floating-label">
+													<Field name="city" className="floating-label" type="text" disabled />
+													<label htmlFor="city" className="floating-label">City</label>
+												</div>
+
+												<div id="state" className="field floating-label">
+													<Field as="select" name="state" className="dropdown" disabled>
+														<option value="">&nbsp;</option>
+														<option value="AL">AL</option>
+														<option value="AK">AK</option>
+														<option value="AZ">AZ</option>
+														<option value="AR">AR</option>
+														<option value="CA">CA</option>
+														<option value="CO">CO</option>
+														<option value="CT">CT</option>
+														<option value="DE">DE</option>
+														<option value="DC">DC</option>
+														<option value="FL">FL</option>
+														<option value="GA">GA</option>
+														<option value="HI">HI</option>
+														<option value="ID">ID</option>
+														<option value="IL">IL</option>
+														<option value="IN">IN</option>
+														<option value="IA">IA</option>
+														<option value="KS">KS</option>
+														<option value="KY">KY</option>
+														<option value="LA">LA</option>
+														<option value="ME">ME</option>
+														<option value="MD">MD</option>
+														<option value="MA">MA</option>
+														<option value="MI">MI</option>
+														<option value="MN">MN</option>
+														<option value="MS">MS</option>
+														<option value="MO">MO</option>
+														<option value="MT">MT</option>
+														<option value="NE">NE</option>
+														<option value="NV">NV</option>
+														<option value="NH">NH</option>
+														<option value="NJ">NJ</option>
+														<option value="NM">NM</option>
+														<option value="NY">NY</option>
+														<option value="NC">NC</option>
+														<option value="ND">ND</option>
+														<option value="OH">OH</option>
+														<option value="OK">OK</option>
+														<option value="OR">OR</option>
+														<option value="PA">PA</option>
+														<option value="RI">RI</option>
+														<option value="SC">SC</option>
+														<option value="SD">SD</option>
+														<option value="TN">TN</option>
+														<option value="TX">TX</option>
+														<option value="UT">UT</option>
+														<option value="VT">VT</option>
+														<option value="VA">VA</option>
+														<option value="WA">WA</option>
+														<option value="WV">WV</option>
+														<option value="WI">WI</option>
+														<option value="WY">WY</option>
+													</Field>
+													<label htmlFor="state" className="floating-label">State</label>
+												</div>
+
+												<div id="zip" className="field floating-label">
+													<Field name="zip" className="floating-label" type="text" disabled />
+													<label htmlFor="zip" className="floating-label">Zip Code</label>
+												</div>
+												{errors.city && touched.city ? <span className="errors">{errors.city}</span> : <></>}
+												{errors.state && touched.state ? <span className="errors">{errors.state}</span> : <></>}
+												{errors.zip && touched.zip ? <span className="errors">{errors.zip}</span> : <></>}
+											</div>
+										</div>
+									</div>
+
+									<label className="section">Delivery Date</label>
+									<div className="inputs delivery">
+										<Field name="delivery_date" type="date" disabled={isSubmitting} />
+										{errors.delivery_date ? <span className="errors">{errors.delivery_date}</span> : <></>}
+									</div>
+
+									<label className="section">Suggested Price</label>
+									<div className="inputs price">
+										<strong>${values.price} per gallon</strong>
+									</div>
+
+									<label className="section">Total Amount Due</label>
+									<div className="inputs total">
+										<strong>${roundTo2Decimals(values.quantity * values.price)}</strong>
+									</div>
+								</div>
+
+								<div className="button-area">
+									<button type="submit" disabled={isSubmitting || !isValid}>Get Quote</button>
+								</div>
+							</Form>
+						)}
+						</Formik>
+					</div>
+				</div>
 			</div>
 		</div>
 	);

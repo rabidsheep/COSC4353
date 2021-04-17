@@ -174,13 +174,13 @@ body { background-color: #CCC; }
 
 /* ***CSS SPECIFIC TO REGISTER PAGE*** */
 /* grid css for name row and city/state/zip row in register form */
-#register .grid-container.fnln, #profile-wrapper .grid-container.fnln{
+#register .grid-container.fnln {
 	display: grid;
 	grid-template-columns: 215px 215px;
 	grid-column-gap: 20px;
 }
 
-#register .grid-container.csz, #profile-wrapper .grid-container.csz {
+#register .grid-container.csz {
 	display: grid;
 	grid-template-columns: 220px 70px 120px;
 	grid-column-gap: 20px;
