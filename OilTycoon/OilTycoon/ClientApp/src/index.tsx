@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
-import './styles/Home.css';
-import './styles/Quotes.css';
+import './styles/Auth.css';
+import './styles/UserForm.css';
 
 import { Login } from './routes/Login';
 import { Register } from './routes/Register';

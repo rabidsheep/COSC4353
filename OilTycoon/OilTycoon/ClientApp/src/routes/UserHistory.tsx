@@ -20,7 +20,7 @@ export function UserHistory() {
 	}, []);
 
 	return (
-		<div id="quotes" className="body-wrapper auth">
+		<div id="history" className="body-wrapper auth">
 			<div className="flex-container sidebar">
 				<div className="sticky-wrapper">
 					<Navigation />
@@ -40,7 +40,7 @@ export function UserHistory() {
 								<tr>
 									<th>Ref #</th>
 									<th>Qty</th>
-									<th>Delivery Address</th>
+									<th>Shipping Address</th>
 									<th>Delivery Date</th>
 									<th>Suggested Price</th>
 									<th>Total Due</th>
@@ -59,19 +59,19 @@ export function UserHistory() {
 
 export function UserHistoryRow(props: { quote: FuelQuote }) {
 	const { id, quantity, deliveryDate, price, totalDue, address1, address2, city, state, zipCode } = props.quote;
-	let addStr = address1 + ', ';
+	let street = address1
 	if (address2 !== '' && address2 !== ' ' && address2 != null) {
-		addStr += address2 + ', ';
+		street += ', ' + address2;
 	}
-	addStr += city + ', ' + state + ' ' + zipCode;
+	let csz = city + ', ' + state + ' ' + zipCode;
 	return (
 		<tr>
 			<td>{id}</td>
 			<td>{quantity}</td>
-			<td><small>{`${addStr}`}</small></td>
+			<td>{`${street}`}<br />{`${csz}`}</td>
 			<td>{deliveryDate}</td>
-			<td>{price}</td>
-			<td>{totalDue}</td>
+			<td>{`$`}{price}</td>
+			<td>{`$`}{totalDue}</td>
 		</tr>
 	);
 }

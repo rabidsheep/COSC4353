@@ -35,7 +35,7 @@
     background-image: linear-gradient(to bottom, rgba(247,206,62,1), rgba(255,0,0,0));
     width: calc(100%-2px);
     margin: auto;
-    padding: 8% 0;
+    padding: 30px 0;
     text-align: center;
 }
 
@@ -52,6 +52,8 @@
     z-index: 0;
 }
 /* css for main box itself */
+.ptitle { text-align: center; }
+
 .main {
     width: 650px;
     margin-left: 1px;
@@ -126,6 +128,13 @@ ul.navigation {
     position: relative;
 }
 
+#profile-wrapper .hints {
+    font-size: 14px;
+    font-style: italic;
+    font-weight: bold;
+    color: #444;
+}
+
 /* QUOTES TABLE CSS */
 
 .grid {
@@ -196,16 +205,41 @@ ul.navigation {
 
 /* USER HISTORY CSS */
 
-table#history-table {
+#history-table {
     margin: auto;
-    width: 630px;
     border-spacing: 0;
+    text-align: center;
+    table-layout: fixed;
 }
 
-table#history-table td {
-    padding: 10px;
-}
+    #history-table th {
+        vertical-align: top;
+    }
 
-table#history-table tr:nth-child(even) {
-    background-color: gray;
-}
+    #history-table td {
+        padding: 10px;
+    }
+
+    #history-table tr:nth-child(even) {
+        background-color: gray;
+    }
+
+    #history-table th:nth-child(1), #history-table th:nth-child(2) {
+        width: 40px;
+    }
+
+    #history-table th:nth-child(3) {
+        width: 220px;
+    }
+
+    #history-table th:nth-child(4) {
+        width: 100px;
+    }
+
+    #history-table th:nth-child(5) {
+        width: 130px;
+    }
+
+    #history-table th:nth-child(6) {
+        width: 80px;
+    }
