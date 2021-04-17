@@ -97,11 +97,18 @@ export function UserProfile() {
 		<div id="logged-in">
 			<TitleArea />
 
+<<<<<<< Updated upstream
 			<Navigation />
 			<div id="main">
 				<div className="ptitle">
 					<h2>Your User Profile</h2>
 				</div>
+=======
+			<div className="flex-container main">
+				<div className="main-bg" />
+				<div className="main">
+					<TitleArea />
+>>>>>>> Stashed changes
 
 				<div id="profile-wrapper">
 					<Formik<ProfileFields>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Navigation, TitleArea } from '../components/Reusables';
 import { FuelQuote, FuelQuoteClient } from '../generated';
+import '../styles/Auth.css';
 
 // HTML for user homepage
 export function UserHistory() {
@@ -19,29 +20,38 @@ export function UserHistory() {
 	}, []);
 
 	return (
-		<div id="logged-in">
-			<TitleArea />
-
-			<Navigation />
-			<div id="main">
-				<div className="ptitle">
-					<p className="ptitle">Your Quote History</p>
+		<div id="quotes" className="body-wrapper auth">
+			<div className="flex-container sidebar">
+				<div className="sticky-wrapper">
+					<Navigation />
 				</div>
-				<table id="history-table">
-					<thead>
-						<tr>
-							<th>Reference Number</th>
-							<th>Quantity</th>
-							<th>Delivery Address</th>
-							<th>Delivery Date</th>
-							<th>Suggested Price</th>
-							<th>Total Amount Due</th>
-						</tr>
-					</thead>
-					<tbody>
-						{quotes.map(e => <UserHistoryRow key={e.id} quote={e} />)}
-					</tbody>
-				</table>
+			</div>
+
+			<div className="flex-container main">
+				<div className="main-bg" />
+				<div className="main">
+					<TitleArea />
+					<div className="ptitle">
+						<h2>Your User History</h2>
+					</div>
+					<div id="history-wrapper">
+						<table id="history-table">
+							<thead>
+								<tr>
+									<th>Ref #</th>
+									<th>Qty</th>
+									<th>Delivery Address</th>
+									<th>Delivery Date</th>
+									<th>Suggested Price</th>
+									<th>Total Due</th>
+								</tr>
+							</thead>
+							<tbody>
+								{quotes.map(e => <UserHistoryRow key={e.id} quote={e} />)}
+							</tbody>
+						</table>
+					</div>
+				</div>
 			</div>
 		</div>
 	);
