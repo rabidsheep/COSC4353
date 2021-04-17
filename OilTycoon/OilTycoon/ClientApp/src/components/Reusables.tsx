@@ -6,14 +6,13 @@ import wordart from '../assets/wordart.png';
 /* nav bar */
 export function Navigation() {
 	return (
-		<div id="navigation-wrapper">
-			<div id="navigation">
-				<NavLink to="/quote">Get A Quote</NavLink>
-				<NavLink to="/history">User History</NavLink>
-				<NavLink to="/profile">User Profile</NavLink>
-				<NavLink to="/contact">Contact Us</NavLink>
-				<NavLink to="/logout">Log Out</NavLink>
-			</div>
+		<div className="navigation-wrapper">
+			<ul className="navigation">
+				<li><NavLink to="/quote">Get A Quote</NavLink></li>
+				<li><NavLink to="/history">User History</NavLink></li>
+				<li><NavLink to="/profile">User Profile</NavLink></li>
+				<li><NavLink to="/logout">Log Out</NavLink></li>
+			</ul>
 		</div>
 	);
 }
