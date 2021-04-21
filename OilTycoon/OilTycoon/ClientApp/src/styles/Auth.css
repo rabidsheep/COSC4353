@@ -31,7 +31,7 @@
 }
 /* logo area css */
 .auth .logo {
-    height: 100px;
+    height: auto;
     background-image: linear-gradient(to bottom, rgba(247,206,62,1), rgba(255,0,0,0));
     width: calc(100%-2px);
     margin: auto;
@@ -137,38 +137,69 @@ ul.navigation {
 
 /* QUOTES TABLE CSS */
 
-.grid {
+#quote-wrapper input, #quote-wrapper strong, #quote-wrapper .select {
+    font-family: Tahoma;
+    font-size: 14px;
+}
+
+.top-grid {
     display: grid;
-    grid-template-columns: 180px 450px;
-    grid-gap: 20px;
+    grid-template-columns: 180px 400px;
+    grid-gap: 10px 20px;
     margin-bottom: 40px;
 }
 
-#quote-wrapper .inputs.shipping input {
-    width: 370px;
+.bottom-grid {
+    display: grid;
+    grid-template-columns: auto 20fr;
+    grid-gap: 10px;
+}
+
+.bottom-grid__pricing {
+    display: grid;
+    grid-template-columns: 180px auto;
+    grid-gap: 10px 20px;
+}
+
+.bottom-grid__button-area {
+    width: 100%;
+    height: 100%;
+    display: inherit;
 }
 
 #quote-wrapper .grid-container.csz {
     display: grid;
-    grid-template-columns: 180px 50px 100px;
-    grid-column-gap: 20px;
+    grid-template-columns: 40fr 15fr 25fr;
     position: relative;
+    grid-column-gap: 20px;
 }
-
-    #quote-wrapper .grid-container.csz input {
-        width: 100%;
-    }
-
     #quote-wrapper .section, .labels {
         font-size: 14px;
         font-family: "Times New Roman", Times, serif;
     }
 
+.inputs.shipping > div:nth-of-type(2){
+    margin: 40px 0px;
+}
+
 #quote-wrapper .section {
     text-align: right;
-    font-weight: bold;
-    font-size: 18px;
+    margin-right: 0px;
+    margin-top: 0px;
+    display: table;
+    height: 30px;
+    padding: 1px;
+    margin: auto;
+    margin-right: 10px;
+    margin-top: 0px;
 }
+
+    #quote-wrapper .section > h3 {
+        font-size: 16px;
+        font-weight: bold;
+        display: table-cell;
+        vertical-align: middle;
+    }
 
 #quote-wrapper .inputs.shipping div:last-child {
     margin-bottom: 0px;
@@ -176,31 +207,20 @@ ul.navigation {
 
 #quote-wrapper .inputs, #quote-wrapper .section {
     margin-bottom: 20px;
+    display: table;
+}
+
+#quote-wrapper .inputs > strong {
+    display: table-cell;
+    vertical-align: middle;
 }
 
 #quote-wrapper .inputs.shipping {
     margin-top: 20px;
 }
 
-#quote-wrapper .inputs {
-    margin-left: 20px;
-}
-
-#quote-wrapper .section {
-    margin: auto;
-    margin-right: 0px;
-    margin-top: 0px;
-}
-
 #quote-wrapper .qty input {
     width: 50px;
-    background: transparent;
-    outline: none;
-    border: none;
-}
-
-#quote-wrapper .userform input.floating-label {
-    font-size: 14px;
 }
 
 /* USER HISTORY CSS */
@@ -243,3 +263,5 @@ ul.navigation {
     #history-table th:nth-child(6) {
         width: 80px;
     }
+
+/* DROPDOWN CSS */

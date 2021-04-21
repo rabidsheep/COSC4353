@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, Component } from 'react';
 import { Formik, Field, Form, FormikHelpers, useFormikContext } from 'formik';
 import * as Yup from 'yup';
-
-import { Navigation, TitleArea } from '../components/Reusables';
+import DropDown from '../components/DropDown';
+import { ValidationBox } from '../components/InputValidation';
+import { Navigation, TitleArea, states } from '../components/Reusables';
 import { FuelQuote, FuelQuoteClient, UserClient } from '../generated';
 import '../styles/Auth.css';
 
@@ -50,7 +51,7 @@ function QuantityField() {
 	// We can't listen to the event "onChange" because it breaks formik for some reason, so we have to listen to alternative
 	// ways of knowing when the field has changed
 
-	return <Field name="quantity" type="number" min={0} disabled={isSubmitting} onClick={handleUpdate} onKeyUp={handleUpdate} />
+	return <Field component={ValidationBox} className="floating-label" name="quantity" type="number" min={0} disabled={isSubmitting} onClick={handleUpdate} onKeyUp={handleUpdate} />
 }
 
 interface QuoteFields {
@@ -64,6 +65,9 @@ interface QuoteFields {
 	delivery_date: string;
 }
 
+interface MyProps {
+
+}
 // Main Quote submission component
 export function Quotes() {
 
@@ -146,128 +150,80 @@ export function Quotes() {
 					{({ isSubmitting, isValid, errors, touched, values }) => (
 							<Form className="userform">
 								<DataFetcher />
-								<div className="grid">
-									<label className="section">Quantity</label>
+								<div className="top-grid">
+										<label className="section"><h3>Quantity</h3></label>
 									<div className="inputs qty">
-										<QuantityField />
-										{errors.quantity && touched.quantity ? <span className="errors">{errors.quantity}</span> : <></>}
+										<div id="qty" className="field floating-label">
+											<QuantityField />
+											{errors.quantity && touched.quantity ? <span className="errors">{errors.quantity}</span> : <></>}
+										</div>
 									</div>
 
-									<label className="section">Shipping Info</label>
+									<label className="section"><h3>Shipping Info</h3></label>
 									<div className="inputs shipping">
-										<div className="field-row">
-											<div id="add1" className="field floating-label">
-												<Field name="address1" className="floating-label" type="text" disabled />
-												<label htmlFor="address1" className="floating-label">Address 1</label>
-												{errors.address1 && touched.address1 ? <span className="errors">{errors.address1}</span> : <></>}
+											<div className="field-row">
+												<div id="add1" className="field floating-label">
+													<Field component={ValidationBox} name="address1" className="floating-label" placeholder="Address 1" type="text" disabled={isSubmitting} />
+													<div className="label-wrapper"><label className="floating-label" htmlFor="address1">Address 1</label></div>
+													{errors.address1 && touched.address1 ? <span className="errors">{errors.address1}</span> : <></>}
+												</div>
 											</div>
-										</div>
 
-										<div className="field-row">
-											<div id="add2" className="field floating-label">
-												<Field name="address2" className="floating-label" type="text" disabled />
-												<label htmlFor="address2" className="floating-label">Address 2</label>
+											<div className="field-row">
+												<div id="add2" className="field floating-label">
+													<Field component={ValidationBox} name="address2" className="floating-label" placeholder="Address 2" type="text" disabled={isSubmitting} />
+													<div className="label-wrapper"><label className="floating-label" htmlFor="address2">Address 2 (Optional)</label></div>
 													{errors.address2 && touched.address2 ? <span className="errors">{errors.address2}</span> : <></>}
+												</div>
 											</div>
-										</div>
 
-										<div className="field-row">
-											<div className="grid-container csz">
-												<div id="city" className="field floating-label">
-													<Field name="city" className="floating-label" type="text" disabled />
-													<label htmlFor="city" className="floating-label">City</label>
-												</div>
+											<div className="field-row">
+												<div className="grid-container csz">
+													<div id="city" className="field floating-label">
+														<Field component={ValidationBox} name="city" className="floating-label" placeholder="City" type="text" disabled={isSubmitting} />
+														<div className="label-wrapper"><label className="floating-label" htmlFor="city">City</label></div>
+														{errors.city && touched.city ? <span className="errors">{errors.city}</span> : <></>}
+													</div>
 
-												<div id="state" className="field floating-label">
-													<Field as="select" name="state" className="floating-label" disabled>
-														<option value="">&nbsp;</option>
-														<option value="AL">AL</option>
-														<option value="AK">AK</option>
-														<option value="AZ">AZ</option>
-														<option value="AR">AR</option>
-														<option value="CA">CA</option>
-														<option value="CO">CO</option>
-														<option value="CT">CT</option>
-														<option value="DE">DE</option>
-														<option value="DC">DC</option>
-														<option value="FL">FL</option>
-														<option value="GA">GA</option>
-														<option value="HI">HI</option>
-														<option value="ID">ID</option>
-														<option value="IL">IL</option>
-														<option value="IN">IN</option>
-														<option value="IA">IA</option>
-														<option value="KS">KS</option>
-														<option value="KY">KY</option>
-														<option value="LA">LA</option>
-														<option value="ME">ME</option>
-														<option value="MD">MD</option>
-														<option value="MA">MA</option>
-														<option value="MI">MI</option>
-														<option value="MN">MN</option>
-														<option value="MS">MS</option>
-														<option value="MO">MO</option>
-														<option value="MT">MT</option>
-														<option value="NE">NE</option>
-														<option value="NV">NV</option>
-														<option value="NH">NH</option>
-														<option value="NJ">NJ</option>
-														<option value="NM">NM</option>
-														<option value="NY">NY</option>
-														<option value="NC">NC</option>
-														<option value="ND">ND</option>
-														<option value="OH">OH</option>
-														<option value="OK">OK</option>
-														<option value="OR">OR</option>
-														<option value="PA">PA</option>
-														<option value="RI">RI</option>
-														<option value="SC">SC</option>
-														<option value="SD">SD</option>
-														<option value="TN">TN</option>
-														<option value="TX">TX</option>
-														<option value="UT">UT</option>
-														<option value="VT">VT</option>
-														<option value="VA">VA</option>
-														<option value="WA">WA</option>
-														<option value="WV">WV</option>
-														<option value="WI">WI</option>
-														<option value="WY">WY</option>
-													</Field>
-													<label htmlFor="state" className="floating-label">State</label>
-												</div>
+													<div id="state" className="field floating-label">
+														<Field component={DropDown} name="state" options={states} maxLength={2} className="select floating-label" placeholder="" />
+														{errors.state && touched.state ? <span className="errors">{errors.state}</span> : <></>}
+													</div>
 
-												<div id="zip" className="field floating-label">
-													<Field name="zip" className="floating-label" type="text" disabled />
-													<label htmlFor="zip" className="floating-label">Zip Code</label>
+													<div id="zip" className="field floating-label">
+														<Field component={ValidationBox} name="zip" className="floating-label" placeholder="zip" type="text" maxLength={5} disabled={isSubmitting} />
+														<div className="label-wrapper"><label className="floating-label" htmlFor="zip">Zip Code</label></div>
+														{errors.zip && touched.zip ? <span className="errors">{errors.zip}</span> : <></>}
+													</div>
 												</div>
-												{errors.city && touched.city ? <span className="errors">{errors.city}</span> : <></>}
-												{errors.state && touched.state ? <span className="errors">{errors.state}</span> : <></>}
-												{errors.zip && touched.zip ? <span className="errors">{errors.zip}</span> : <></>}
 											</div>
-										</div>
 									</div>
 
-									<label className="section">Delivery Date</label>
+									<label className="section"><h3>Delivery Date</h3></label>
 									<div className="inputs delivery">
-										<div id="delivery-date" className="field floating-label">
-											<Field name="delivery_date" type="date" disabled={isSubmitting} />
+											<div id="delivery-date" className="field floating-label">
+											<Field component={ValidationBox} name="delivery_date" className="floating-label" type="date" disabled={isSubmitting} />
 											{errors.delivery_date ? <span className="errors">{errors.delivery_date}</span> : <></>}
 										</div>
 									</div>
-
-									<label className="section">Suggested Price</label>
-									<div className="inputs price">
-											<strong>${roundTo2Decimals(values.price)} per gallon</strong>
-									</div>
-
-									<label className="section">Total Amount Due</label>
-									<div className="inputs total">
-										<strong>${roundTo2Decimals(values.quantity * values.price)}</strong>
-									</div>
 								</div>
 
-								<div className="button-area">
-									<button type="submit" disabled={isSubmitting || !isValid}>Get Quote</button>
+								<div className="bottom-grid">
+									<div className="bottom-grid__pricing">
+										<label className="section"><h3>Suggested Price</h3></label>
+										<div className="inputs price">
+												<strong>${roundTo2Decimals(values.price)} per gallon</strong>
+										</div>
+
+											<label className="section"><h3>Total Amount Due</h3></label>
+										<div className="inputs total">
+											<strong>${roundTo2Decimals(values.quantity * values.price)}</strong>
+										</div>
+									</div>
+
+									<div className="bottom-grid__button-area">
+										<button className="form-button" type="submit" disabled={isSubmitting || !isValid}>Get Quote</button>
+									</div>
 								</div>
 							</Form>
 						)}

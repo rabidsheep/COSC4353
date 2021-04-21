@@ -3,6 +3,7 @@ import { useHistory, useLocation } from 'react-router';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { TitleArea } from '../components/Reusables';
+import { ValidationBox } from '../components/InputValidation';
 import { AuthClient } from '../generated'
 import '../styles/UserForm.css';
 
@@ -68,22 +69,22 @@ export function Login() {
 									<div id="login-wrapper">
 										<div className="field-row">
 											<div id="uname" className="field floating-label">
-												<Field name="username" className="floating-label" placeholder="username" type="text" disabled={isSubmitting} />
-												<label className="floating-label" htmlFor="username">Username</label>
+												<Field name="username" className="floating-label" placeholder="username" type="text" component={ValidationBox}  disabled={isSubmitting} />
+												<div className="label-wrapper"><label className="floating-label" htmlFor="username">Username</label></div>
 												{errors.username && touched.username ? <span className="errors">{errors.username}</span> : <></>}
 											</div>
 										</div>
 
 										<div className="field-row">
 											<div id="pword" className="field floating-label">
-												<Field name="password" className="floating-label" placeholder="password" type="password" disabled={isSubmitting} />
-												<label className="floating-label" htmlFor="password">Password</label>
+												<Field component={ValidationBox} name="password" className="floating-label" placeholder="password" type="password" disabled={isSubmitting} />
+												<div><label className="floating-label" htmlFor="password">Password</label></div>
 												{errors.password && touched.password ? <span className="errors">{errors.password}</span> : <></>}
 											</div>
 										</div>
 
-										<div className="button-area">
-											<button type="submit" disabled={isSubmitting || !isValid}>Login</button> <button onClick={() => handleRegClick(values)}>Register</button>
+										<div className="button-grid">
+											<button className="form-button" type="submit" disabled={isSubmitting || !isValid}>Login</button> <button className="form-button" onClick={() => handleRegClick(values)}>Register</button>
 										</div>
 									</div>
 								</Form>

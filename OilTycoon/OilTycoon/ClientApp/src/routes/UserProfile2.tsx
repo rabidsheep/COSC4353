@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+﻿import React, { useEffect } from 'react';
 import { Field, Form, Formik, FormikHelpers, useFormikContext } from 'formik';
 import * as Yup from 'yup';
 import { Navigation, TitleArea, toPascal, states } from '../components/Reusables';
@@ -117,6 +117,8 @@ export function UserProfile() {
 						<div className="ptitle">
 							<h2>Your User Profile</h2>
 						</div>
+
+						<div id="profile-wrapper">
 							<Formik<ProfileFields>
 								initialValues={{
 									username: '',
@@ -135,130 +137,97 @@ export function UserProfile() {
 									first_name: Yup.string()
 										.max(100, 'Must be less than 100 characters')
 										.typeError('Required')
-										.required('Required'),
+										.required('First name must be provided'),
 									last_name: Yup.string()
 										.max(100, 'Must be less than 100 characters')
 										.typeError('Required')
-										.required('Required'),
+										.required('Last name must be provided'),
 									address1: Yup.string()
 										.max(100, 'Must be less than 100 characters')
 										.typeError('Required')
-										.required('Required'),
+										.required('Address must be provided'),
 									address2: Yup.string()
 										.nullable(true)
 										.max(100, 'Must be less than 100 characters'),
 									city: Yup.string()
 										.max(100, 'Must be less than 100 characters')
 										.typeError('Required')
-										.required('Required'),
+										.required('City must be provided'),
 									state: Yup.string()
-										.min(2)
-										.max(2, 'Please use your state\'s abbreviation.')
+										.max(100, 'Must be less than 100 characters')
 										.typeError('Required')
-										.required('Required'),
+										.required('State must be provided'),
 									zip: Yup.string()
 										.max(100, 'Must be less than 100 characters')
 										.typeError('Required')
 										.matches(/[0-9]{5}/, 'Must be a 5 digit number')
-										.required('Required'),
+										.required('Zip-code must be provided.'),
 									current_password: Yup.string()
 										.typeError('Required')
-										.required('Required'),
+										.required('Current password is required to make changes to profile'),
 								})}
 								enableReinitialize
 								onSubmit={onSubmit}
 								>
-							{({ isSubmitting, isValid, errors, touched, values }) => (
-							<Form id="profile-form" className="userform">
-								<div id="profile-wrapper">
+								{({ isSubmitting, isValid, errors, touched, values }) => (
+									<Form className="userform">
 										<DataFetcher />
 										<div className="field-row">
-											<div id="uname" className="field floating-label">
-												<Field component={ValidationBox} name="username" className="floating-label" placeholder="username" type="text" disabled />
-												<div className="label-wrapper"><label className="floating-label" htmlFor="username">Username</label></div>
+												<Field component={ValidationBox} dataLabel="" name="username" className="floating-label" placeholder="username" type="text" disabled />
 												{errors.username && touched.username ? <span className="errors">{errors.username}</span> : <></>}
-											</div>
 										</div>
 
 										<div className="field-row">
 											<div className="grid-container fnln">
-												<div id="fname" className="field floating-label">
-													<Field component={ValidationBox} name="first_name" className="floating-label" placeholder="First Name" type="text" disabled={isSubmitting} />
-													<div className="label-wrapper"><label className="floating-label" htmlFor="first_name">First Name</label></div>
+													<Field component={ValidationBox} dataLabel="First Name" name="first_name" className="floating-label" placeholder="First Name" type="text" disabled={isSubmitting} />
 													{errors.first_name && touched.first_name ? <span className="errors">{errors.first_name}</span> : <></>}
-												</div>
 
-												<div id="lname" className="field floating-label">
-													<Field component={ValidationBox} name="last_name" className="floating-label" placeholder="Last Name" type="text" disabled={isSubmitting} />
-													<div className="label-wrapper"><label className="floating-label" htmlFor="last_name">Last Name</label></div>
+													<Field component={ValidationBox} dataLabel="Last Name" name="last_name" className="floating-label" placeholder="Last Name" type="text" disabled={isSubmitting} />
 													{errors.last_name && touched.last_name ? <span className="errors">{errors.last_name}</span> : <></>}
-												</div>
 											</div>
 										</div> 
 
 										<div className="field-row">
-											<div id="add1" className="field floating-label">
-												<Field component={ValidationBox} name="address1" className="floating-label" placeholder="Address 1" type="text" disabled={isSubmitting} />
-											<div className="label-wrapper"><label className="floating-label" htmlFor="address1">Address 1</label></div>
-											{errors.address1 && touched.address1 ? <span className="errors">{errors.address1}</span> : <></>}
-											</div>
+											
+												<Field component={ValidationBox} dataLabel="Address 1" name="address1" className="floating-label" placeholder="Address 1" type="text" disabled={isSubmitting} />
+												{errors.address1 && touched.address1 ? <span className="errors">{errors.address1}</span> : <></>}
 										</div>
 	
 										<div className="field-row">
-											<div id="add2" className="field floating-label">
-												<Field component={ValidationBox} name="address2" className="floating-label" placeholder="Address 2" type="text" disabled={isSubmitting} />
-												<div className="label-wrapper"><label className="floating-label" htmlFor="address2">Address 2 (Optional)</label></div>
+												<Field component={ValidationBox} dataLabel="Address 2" name="address2" className="floating-label" placeholder="Address 2" type="text" disabled={isSubmitting} />
 												{errors.address2 && touched.address2 ? <span className="errors">{errors.address2}</span> : <></>}
-											</div>
 										</div>
 
 										<div className="field-row">
 											<div className="grid-container csz">
-												<div id="city" className="field floating-label">
-													<Field component={ValidationBox} name="city" className="floating-label" placeholder="City" type="text" disabled={isSubmitting} />
-													<div className="label-wrapper"><label className="floating-label" htmlFor="city">City</label></div>
-													{errors.city && touched.city ? <span className="errors">{errors.city}</span> : <></>}
-												</div>
+												<Field component={ValidationBox} dataLabel="City" name="city" className="floating-label" placeholder="City" type="text" disabled={isSubmitting} />
 
-											<div id="state" className="field floating-label">
-												<Field component={DropDown} name="state" options={states} maxLength={2} className="select floating-label" placeholder="" />
-												{/*<div className="label-wrapper"><label className="floating-label" htmlFor="state">State</label></div>*/}
-													{ errors.state ? <span className="errors">{errors.state}</span> : <></>}
-											</div>
-
-												<div id="zip" className="field floating-label">
-													<Field component={ValidationBox} name="zip" className="floating-label" placeholder="zip" type="text" maxLength={5} disabled={isSubmitting} />
-													<div className="label-wrapper"><label className="floating-label" htmlFor="zip">Zip Code</label></div>
-													{errors.zip && touched.zip ? <span className="errors">{errors.zip}</span> : <></>}
+												<div id="state" className="field floating-label">
+												<Field component={DropDown} dataLabel="State" name="state" options={states} maxLength={2} className="select floating-label" classNamePrefix="select-inner" placeholder=""/>
+												<div className="label-wrapper"><label className="floating-label" htmlFor="state">State</label></div>
 												</div>
+												
+												<Field component={ValidationBox} dataLabel="Zip Code" name="zip" className="floating-label" placeholder="zip" type="text" maxLength={5} disabled={isSubmitting} />
 											</div>
 										</div>
 
 										<div className="field-row">
-											<div id="current-pw" className="field floating-label">
-												<Field component={ValidationBox} name="current_password" className="floating-label" placeholder="Current password" type="password" disabled={isSubmitting} />
-												<div className="label-wrapper"><label htmlFor="current_password" className="floating-label">Current Password</label></div>
-											</div>
+											<Field component={ValidationBox} dataLabel="Current Password" name="current_password" className="floating-label" placeholder="Current password" type="password" disabled={isSubmitting} />
 										</div>
 
 										<div className="field-row">
-											<div id="new-pw" className="field floating-label">
-												<Field name="new_password" className="floating-label" placeholder="New password" type="password" disabled={isSubmitting} />
-											<div className="label-wrapper"><label htmlFor="new_password" className="floating-label">New Password</label></div>
-											</div>
-
+												<Field name="new_password" dataLabel="New Password" className="floating-label" placeholder="New password" type="password" disabled={isSubmitting} />
 											<div className="hints">
 													{values.new_password === "" || values.new_password === " " ? `Password won't be changed` : 'Password will be updated!'}
 											</div>
-									</div>
-									
+										</div>
 										<div className="button-area">
 											<button className="form-button" type="submit" disabled={isSubmitting || !isValid}>Update</button>
-									</div>
-								</div>
-							</Form>
-						)}
-					</Formik>
+										</div>
+									</Form>
+								)}
+							</Formik>
+						</div>
 				</div>
 			</div>
 		</div>

@@ -80,13 +80,13 @@ body { background-color: #CCC; }
 }
 
 /* registration form css */
-#login-form, #register-form {
+#login-form, #register-form, #profile-form {
 	width: 450px;
 	height: 55%;
 	margin: auto;
 }
 
-#login-wrapper, #register-wrapper {
+#login-wrapper, #register-wrapper, #profile-wrapper {
 	width: 100%;
 	margin: 8% 0;
 }
@@ -96,47 +96,90 @@ body { background-color: #CCC; }
 	margin-bottom: 40px;
 }
 
-.userform .field { position: relative; }
+.userform .field { 
+	position: relative;
+}
+
+.select.floating-label {
+
+}
+
+input {
+	transition: all 0.5s;
+	background-color: transparent;
+	outline: none;
+}
 
 /* floating label css */
-.userform input.floating-label,
-.userform select.floating-label {
+.userform input.floating-label {
 	margin: 0;
 	width: 100%;
 	height: 30px;
 	font-size: 18px;
 	background: transparent;
 	border: none;
-	border-bottom: 1px solid gold;
-	z-index: 1;
+	outline: none;
+	background: transparent;
 	position: relative;
+	border-bottom: 1px solid gold;
 }
 
 	/* hide placeholder text */
-	.userform input.floating-label::placeholder,
-	.userform select.floating-label::placeholder
-	{ opacity: 0; }
+	.userform input.floating-label:focus::placeholder {
+		opacity: 0;
+	}
+
+	.userform input.floating-label::placeholder {
+		opacity: 0;
+	}
+
+	.field > input {
+		z-index: 2;
+	}
+
+	.label-wrapper {
+		z-index: 2;
+	}
+
+	.label-wrapper:hover, input.floating-label:hover + .label-wrapper {
+		z-index: 1;
+	}
 
 	/* remove outline when input field is active */
-	.userform input.floating-label:focus,
-	.userform select.floating-label:focus
+	.userform input.floating-label:focus
 	{ outline: none; }
 
 
 /* initial label positioning */
-.userform input.floating-label + label,
-.userform select.floating-label + label {
+.userform .label-wrapper {
+	display: table;
 	position: absolute;
+	height: 31px;
+	top: 0;
+	border-bottom: 1px solid rgba(0, 0, 0, 0);
+}
+
+.userform .floating-label + .label-wrapper {
 	transition: all 0.3s;
 	font-size: 18px;
-	left: 0;
+	top: 0;
+	font-family: Tahoma;
+	font-weight: 400;
+}
+
+.userform .floating-label label {
+	display: table-cell;
+	vertical-align: middle;
+	padding: 1px;
 }
 	/* maintain label floating when input is focused or contains data */
-	.userform input.floating-label:focus + label,
-	.userform select.floating-label:focus + label,
-	.userform input.floating-label:not(:placeholder-shown) + label,
-	.userform select.floating-label:not(:placeholder-shown) + label
-	{ transform: scale(0.85) translateY(-20px) translateX(-20px); }
+	.userform .floating-label:focus + .label-wrapper,
+	.userform .floating-label:not(:placeholder-shown) + .label-wrapper {
+		font-size: 14px;
+		top: -25px;
+		left: -10px;
+	}
+
 
 /* error message css */
 .userform .errors {
@@ -157,7 +200,15 @@ body { background-color: #CCC; }
 	margin: auto;
 }
 
-.button-area button {
+.button-grid {
+	display: grid;
+	width: 300px;
+	grid-template-columns: 50fr 50fr;
+	grid-column-gap: 5px;
+	margin: auto;
+}
+
+button.form-button {
 	background-color: #f7ce3e;
 	font-size: 20px;
 	border: none;
@@ -166,8 +217,12 @@ body { background-color: #CCC; }
 	height: 40px;
 	transition: all 0.3s;
 	text-transform: lowercase;
-	margin-right: 20px;
+	margin: auto;
 }
+
+	button.form-button:hover {
+		background-color: #ffe073;
+	}
 
 	.button-area button:hover { background-color: #ffe073; }
 /* ***END GENERAL CSS FOR LOGIN/REGISTER PAGES*** */
@@ -190,3 +245,7 @@ body { background-color: #CCC; }
 /* error message css */
 .error { position: relative; }
 /* ***END CSS SPECIFIC TO REGISTER PAGE*** */
+
+#react-select-3-input {
+	transition: none !important;
+}
