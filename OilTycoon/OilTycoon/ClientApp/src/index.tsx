@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import './styles/Auth.css';
 import './styles/UserForm.css';
+import './styles/Styles.css';
 
 import { Login } from './routes/Login';
 import { Register } from './routes/Register';

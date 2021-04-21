@@ -1,0 +1,112 @@
+﻿body {
+    background-color: #222831;
+}
+
+body, input, select {
+    color: #dfdfdf;
+}
+
+.auth .main-bg, #register-area, #login-area {
+    background-color: #393f46;
+    border: 1px solid black;
+}
+
+input, select {
+    font-size: 18px;
+    background: transparent;
+    border: none;
+    outline: none;
+}
+
+.floating-label label {
+    position: absolute;
+    letter-spacing: 0.171em;
+}
+
+input, select {
+    font-family: Verdana;
+    font-size: 18px;
+}
+
+#quote-wrapper input, #quote-wrapper select, #quote-wrapper .bottom-grid__pricing p {
+    font-family: Verdana;
+    font-size: 16px;
+}
+
+    #quote-wrapper .bottom-grid__pricing p {
+        font-weight: bold;
+    }
+
+    ul.navigation li {
+        box-shadow: inset 5px -5px 0px rgba(161, 161, 161, 0.5), inset -4px 4px 0px rgba(226, 226, 226, 0.8);
+    }
+
+button {
+    color: ##2e2b2b;
+    font-size: 18px;
+    box-shadow: inset 3px -4px 0px rgba(161, 161, 161, 0.5), inset -4px 2px 0px rgba(226, 226, 226, 0.8);
+    letter-spacing: 0.1em;
+    border: 1px solid black;
+}
+
+ul.navigation li a {
+    color: #5a5a5a;
+    letter-spacing: 0.1em;
+    font-size: 20px;
+    text-decoration: none;
+    font-weight: 600;
+    font-family: Georgia;
+}
+
+#history-table th {
+    padding: 10px 5px;
+    background-color: rgb(31,27,21);
+}
+
+#history-table tr:nth-child(even) {
+    background-color: rgb(32, 29, 25);
+}
+
+#profile-wrapper .hints {
+    font-size: 14px;
+    font-style: italic;
+    font-weight: bold;
+    color: #444;
+}
+
+#quote-wrapper .section > h3 {
+    font-size: 18px;
+    font-family: Georgia;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+}
+
+.border-wrapper {
+    border-bottom: 1px solid gold;
+}
+
+input:disabled, select:disabled {
+    color: #808080d9;
+}
+
+input:not(:disabled):hover,
+input:not(:disabled):focus,
+select:not(:disabled):hover,
+select:not(:disabled):focus {
+    background-color: rgb(31,27,21);
+}
+
+ul.navigation li, .form-button {
+    background-color: #f7ce3e;
+}
+
+    .form-button:not:(:disabled)hover, ul.navigation li:hover {
+        background-color: #ffe073;
+    }
+
+.errors {
+    font-size: 14px;
+    font-style: italic;
+    font-weight: bold;
+    color: red;
+}

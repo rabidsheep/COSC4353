@@ -3,11 +3,7 @@
 	height: 100%;
 	margin: 0;
 }
-
-body { background-color: #CCC; }
-
-/* *** CSS SPECIFIC FOR BOTH LOGIN/REGISTER PAGES *** */
-.userform.body-wrapper {
+.body-wrapper {
 	min-width: 700px;
 	display: flex;
 	flex-direction: row;
@@ -16,7 +12,7 @@ body { background-color: #CCC; }
 }
 
 /* general flex container css */
-.userform.flex-container {
+.flex-container {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
@@ -39,14 +35,7 @@ body { background-color: #CCC; }
 
 #login #login-area, #register #register-area {
 	height: 100%;
-	border-right: 1px solid #000;
-	background-color: #c5c1c0;
 	width: 100%;
-}
-
-#profile-wrapper {
-	width: 450px;
-	margin: auto;
 }
 
 /* css to keep login/register sidebar the full height of a page */
@@ -66,27 +55,18 @@ body { background-color: #CCC; }
 
 /* title/logo area css */
 .userform .logo {
-	height: 100px;
-	background-image: linear-gradient(to bottom, rgba(247,206,62,1), rgba(255,0,0,0));
-	width: 100%;
-	padding: 8% 0;
 	text-align: center;
-}
-
-.userform .logo h3 {
-	font-size: 60px;
-	text-align: center;
-	margin-top: 0px;
 }
 
 /* registration form css */
-#login-form, #register-form {
-	width: 450px;
+form.userform {
+	max-width: 80%;
+	min-width: 20%;
 	height: 55%;
 	margin: auto;
 }
 
-#login-wrapper, #register-wrapper {
+#login-wrapper, #register-wrapper, #profile-wrapper, #quote-wrapper, #history-wrapper {
 	width: 100%;
 	margin: 8% 0;
 }
@@ -96,58 +76,57 @@ body { background-color: #CCC; }
 	margin-bottom: 40px;
 }
 
-.userform .field { position: relative; }
-
-/* floating label css */
-.userform input.floating-label,
-.userform select.floating-label {
-	margin: 0;
-	width: 100%;
-	height: 30px;
-	font-size: 18px;
-	background: transparent;
-	border: none;
-	border-bottom: 1px solid gold;
-	z-index: 1;
+.userform .field {
 	position: relative;
 }
 
-	/* hide placeholder text */
-	.userform input.floating-label::placeholder,
-	.userform select.floating-label::placeholder
-	{ opacity: 0; }
-
-	/* remove outline when input field is active */
-	.userform input.floating-label:focus,
-	.userform select.floating-label:focus
-	{ outline: none; }
-
-
-/* initial label positioning */
-.userform input.floating-label + label,
-.userform select.floating-label + label {
-	position: absolute;
-	transition: all 0.3s;
-	font-size: 18px;
-	left: 0;
+.border-wrapper, input, select {
+	transition: all 0.5s;
 }
-	/* maintain label floating when input is focused or contains data */
-	.userform input.floating-label:focus + label,
-	.userform select.floating-label:focus + label,
-	.userform input.floating-label:not(:placeholder-shown) + label,
-	.userform select.floating-label:not(:placeholder-shown) + label
-	{ transform: scale(0.85) translateY(-20px) translateX(-20px); }
+
+input {
+	width: calc(100% - 10px);
+}
+
+select {
+	width: 100%;
+}
+
+input, select {
+	margin: 0;
+	height: 100%;
+	padding: 5px;
+	background: transparent;
+	position: relative;
+}
+
+.field > input {
+	z-index: 2;
+}
+
+.label-wrapper {
+	z-index: 2;
+}
+
+	.label-wrapper:hover, input.floating-label:hover + .label-wrapper {
+		z-index: 1;
+	}
+
+.floating-label label {
+	position: absolute;
+	letter-spacing: 0.171em;
+}
+
+.floating-label label, .errors {
+	margin-top: 5px;
+}
+
 
 /* error message css */
-.userform .errors {
-	font-size: 14px;
-	font-style: italic;
-	font-weight: bold;
-	color: red;
+.errors {
 	margin-top: 5px;
 	position: absolute;
-	left: 0;
-	bottom: -20px;
+	right: 0;
 }
 
 /* button css */
@@ -157,36 +136,33 @@ body { background-color: #CCC; }
 	margin: auto;
 }
 
-.button-area button {
-	background-color: #f7ce3e;
-	font-size: 20px;
-	border: none;
+.button-grid {
+	display: grid;
+	width: 300px;
+	grid-template-columns: 50fr 50fr;
+	grid-column-gap: 5px;
+	margin: auto;
+}
+
+.form-button {
 	border-radius: 25px;
 	width: 120px;
 	height: 40px;
 	transition: all 0.3s;
 	text-transform: lowercase;
-	margin-right: 20px;
+	margin: auto;
 }
-
-	.button-area button:hover { background-color: #ffe073; }
 /* ***END GENERAL CSS FOR LOGIN/REGISTER PAGES*** */
 
-/* ***CSS SPECIFIC TO REGISTER PAGE*** */
-/* grid css for name row and city/state/zip row in register form */
-#register .grid-container.fnln, #profile-wrapper .grid-container.fnln{
+.grid-container.fnln {
 	display: grid;
-	grid-template-columns: 215px 215px;
+	grid-template-columns: 1fr 1fr;
 	grid-column-gap: 20px;
 }
 
-#register .grid-container.csz, #profile-wrapper .grid-container.csz {
+.grid-container.csz {
 	display: grid;
-	grid-template-columns: 220px 70px 120px;
+	grid-template-columns: 20fr 10fr 15fr;
 	grid-column-gap: 20px;
 	position: relative;
 }
-
-/* error message css */
-.error { position: relative; }
-/* ***END CSS SPECIFIC TO REGISTER PAGE*** */

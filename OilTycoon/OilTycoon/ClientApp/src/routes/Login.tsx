@@ -2,9 +2,10 @@ import React from 'react';
 import { useHistory, useLocation } from 'react-router';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
+
+import { ValidateInput } from '../components/InputValidation';
 import { TitleArea } from '../components/Reusables';
-import { AuthClient } from '../generated'
-import '../styles/UserForm.css';
+import { AuthClient } from '../generated';
 
 export function Login() {
 
@@ -57,18 +58,18 @@ export function Login() {
 								username: Yup.string()
 									// see: https://stackoverflow.com/a/37658211
 									.matches(/^[a-zA-Z0-9]+(?:[_-]?[a-zA-Z0-9])*$/, 'A username can only be alphanumeric with _ -')
-									.required('Username must be provided'),
+									.required('Required'),
 								password: Yup.string()
-									.required('Password must be provided'),
+									.required('Required'),
 							})}
 							enableReinitialize
 							onSubmit={onSubmit}>
 							{({ isSubmitting, isValid, errors, touched, values }) => (
-								<Form id="login-form">
+								<Form id="login-form" className="userform">
 									<div id="login-wrapper">
 										<div className="field-row">
 											<div id="uname" className="field floating-label">
-												<Field name="username" className="floating-label" placeholder="username" type="text" disabled={isSubmitting} />
+												<Field component={ValidateInput} name="username" className="floating-label" type="text" disabled={isSubmitting} />
 												<label className="floating-label" htmlFor="username">Username</label>
 												{errors.username && touched.username ? <span className="errors">{errors.username}</span> : <></>}
 											</div>
@@ -76,14 +77,15 @@ export function Login() {
 
 										<div className="field-row">
 											<div id="pword" className="field floating-label">
-												<Field name="password" className="floating-label" placeholder="password" type="password" disabled={isSubmitting} />
+												<Field component={ValidateInput} name="password" className="floating-label" type="password" disabled={isSubmitting} />
 												<label className="floating-label" htmlFor="password">Password</label>
 												{errors.password && touched.password ? <span className="errors">{errors.password}</span> : <></>}
 											</div>
 										</div>
 
-										<div className="button-area">
-											<button type="submit" disabled={isSubmitting || !isValid}>Login</button> <button onClick={() => handleRegClick(values)}>Register</button>
+										<div className="button-grid">
+											<button className="form-button" type="submit" disabled={isSubmitting || !isValid}>Login</button>
+											<button className="form-button" onClick={() => handleRegClick(values)}>Register</button>
 										</div>
 									</div>
 								</Form>

@@ -34,22 +34,24 @@ export function UserHistory() {
 					<div className="ptitle">
 						<h2>Your User History</h2>
 					</div>
-					<div id="history-wrapper">
-						<table id="history-table">
-							<thead>
-								<tr>
-									<th>Ref #</th>
-									<th>Qty</th>
-									<th>Shipping Address</th>
-									<th>Delivery Date</th>
-									<th>Suggested Price</th>
-									<th>Total Due</th>
-								</tr>
-							</thead>
-							<tbody>
-								{quotes.map(e => <UserHistoryRow key={e.id} quote={e} />)}
-							</tbody>
-						</table>
+					<div className="useless-wrapper">
+						<div id="history-wrapper">
+							<table id="history-table">
+								<thead>
+									<tr>
+										<th>Ref #</th>
+										<th>Qty</th>
+										<th>Shipping Address</th>
+										<th>Delivery Date</th>
+										<th>Suggested Price</th>
+										<th>Total Due</th>
+									</tr>
+								</thead>
+								<tbody>
+									{quotes.map(e => <UserHistoryRow key={e.id} quote={e} />)}
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>

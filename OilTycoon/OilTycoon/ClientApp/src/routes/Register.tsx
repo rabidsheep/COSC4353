@@ -4,8 +4,8 @@ import { useHistory, useLocation } from 'react-router';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { TitleArea, toPascal } from '../components/Reusables';
+import { ValidateInput, ValidateSelect } from '../components/InputValidation';
 import { AuthClient, RegistrationDetails, User, UserClient } from '../generated';
-import '../styles/UserForm.css';
 
 
 export function Register() {
@@ -103,30 +103,30 @@ export function Register() {
 								username: Yup.string()
 									// see: https://stackoverflow.com/a/37658211
 									.matches(/^[a-zA-Z0-9]+(?:[_-]?[a-zA-Z0-9])*$/, 'A username can only be alphanumeric with _ -')
-									.test('check_duplicate_username', 'A user with the same username already exists', async (value) => {
+									.test('check_duplicate_username', 'Username already exists!', async (value) => {
 										const userClient = new UserClient();
 										return ! await userClient.checkIfUsernameExists(value);
 									})
-									.required('Username must be provided'),
+									.required('Required'),
 								password: Yup.string()
-									.required('Password must be provided'),
+									.required('Required'),
 								first_name: Yup.string()
 									.max(100, 'Must be less than 100 characters')
-									.required('First name must be provided'),
+									.required('Required'),
 								last_name: Yup.string()
 									.max(100, 'Must be less than 100 characters')
-									.required('Last name must be provided'),
+									.required('Required'),
 								address1: Yup.string()
 									.max(100, 'Must be less than 100 characters')
-									.required('Address must be provided'),
+									.required('Required'),
 								address2: Yup.string()
 									.max(100, 'Must be less than 100 characters'),
 								city: Yup.string()
 									.max(100, 'Must be less than 100 characters')
-									.required('City must be provided'),
+									.required('Required'),
 								state: Yup.string()
 									.max(100, 'Must be less than 100 characters')
-									.required('State must be provided'),
+									.required('Required'),
 								zip: Yup.string()
 									.max(100, 'Must be less than 100 characters')
 									.matches(/[0-9]{5}/, 'Must be a 5 digit number')
@@ -135,11 +135,11 @@ export function Register() {
 							enableReinitialize
 							onSubmit={onSubmit}>
 							{({ isSubmitting, isValid, errors, touched, values }) => (
-								<Form id="register-form">
+								<Form id="register-form" className="userform">
 									<div id="register-wrapper">
 											<div className="field-row">
 												<div id="uname" className="field floating-label">
-													<Field name="username" className="floating-label" placeholder="username" type="text" disabled={isSubmitting} />
+													<Field component={ValidateInput} name="username" className="floating-label" placeholder="username" type="text" disabled={isSubmitting} />
 													<label className="floating-label" htmlFor="username">Username</label>
 													{errors.username && touched.username ? <span className="errors">{errors.username}</span> : <></>}
 												</div>
@@ -147,53 +147,52 @@ export function Register() {
 
 											<div className="field-row">
 												<div id="pword" className="field floating-label">
-													<Field name="password" className="floating-label" placeholder="password" type="password" disabled={isSubmitting} />
+													<Field component={ValidateInput} name="password" className="floating-label" type="password" disabled={isSubmitting} />
 													<label className="floating-label" htmlFor="password">Password</label>
-													{errors.password && touched.password ? <span className="errors">{errors.password}</span> : <></>}
+													{/*errors.password && touched.password ? <span className="errors">{errors.password}</span> : <></>*/}
 												</div>
 											</div>
 
 										<div className="field-row">
 											<div className="grid-container fnln">
 												<div id="fname" className="field floating-label">
-													<Field name="first_name" className="floating-label" placeholder="First name" type="text" disabled={isSubmitting} />
+													<Field component={ValidateInput} name="first_name" className="floating-label" type="text" disabled={isSubmitting} />
 													<label className="floating-label" htmlFor="first_name">First Name</label>
-													{errors.first_name && touched.first_name ? <span className="errors">{errors.first_name}</span> : <></>}
+													{/*errors.first_name && touched.first_name ? <span className="errors">{errors.first_name}</span> : <></>*/}
 												</div>
 
 												<div id="lname" className="field floating-label">
-													<Field name="last_name" className="floating-label" placeholder="Last name" type="text" disabled={isSubmitting} />
+													<Field component={ValidateInput} name="last_name" className="floating-label" type="text" disabled={isSubmitting} />
 													<label className="floating-label" htmlFor="last_name">Last Name</label>
-													{errors.last_name && touched.last_name ? <span className="errors">{errors.last_name}</span> : <></>}
+													{/*errors.last_name && touched.last_name ? <span className="errors">{errors.last_name}</span> : <></>*/}
 												</div>
 											</div>
 										</div> 
 
 										<div className="field-row">
 											<div id="add1" className="field floating-label">
-												<Field name="address1" className="floating-label" placeholder="Address 1" type="text" disabled={isSubmitting} />
+												<Field component={ValidateInput} name="address1" className="floating-label" type="text" disabled={isSubmitting} />
 												<label className="floating-label" htmlFor="address1">Address 1</label>
-												{errors.address1 && touched.address1 ? <span className="errors">{errors.address1}</span> : <></>}
+												{/*errors.address1 && touched.address1 ? <span className="errors">{errors.address1}</span> : <></>*/}
 											</div>
 										</div>
 	
 										<div className="field-row">
 											<div id="add2" className="field floating-label">
-												<Field name="address2" className="floating-label" placeholder="Address 2" type="text" disabled={isSubmitting} />
+												<Field component={ValidateInput} name="address2" className="floating-label" type="text" disabled={isSubmitting} />
 												<label className="floating-label" htmlFor="address2">Address 2 (Optional)</label>
-												{errors.address2 && touched.address2 ? <span className="errors">{errors.address2}</span> : <></>}
 											</div>
 										</div>
 
 										<div className="field-row">
 											<div className="grid-container csz">
 												<div id="city" className="field floating-label">
-													<Field name="city" className="floating-label" placeholder="City" type="text" disabled={isSubmitting} />
+													<Field component={ValidateInput} name="city" className="floating-label" type="text" disabled={isSubmitting} />
 													<label className="floating-label" htmlFor="city">City</label>
 												</div>
 
 												<div id="state" className="field floating-label">
-													<Field as="select" name="state" className="floating-label">
+													<Field component={ValidateSelect} as="select" name="state" className="floating-label">
 														<option value="">&nbsp;</option>
 														<option value="AL">AL</option>
 														<option value="AK">AK</option>
@@ -251,7 +250,7 @@ export function Register() {
 												</div>
 
 												<div id="zip" className="field floating-label">
-													<Field name="zip" className="floating-label" placeholder="zip" type="text" disabled={isSubmitting} />
+													<Field component={ValidateInput} name="zip" className="floating-label" type="text" disabled={isSubmitting} />
 													<label className="floating-label" htmlFor="zip">Zip Code</label>
 												</div>
 											</div>
@@ -262,8 +261,10 @@ export function Register() {
 											</div>
 										</div>
 									</div>
-									<div className="button-area">
-											<button onClick={() => handleBackClick(values)}>Back</button> <button type="submit" disabled={isSubmitting || !isValid}>Submit</button>
+
+									<div className="button-grid">
+										<button className="form-button" onClick={() => handleBackClick(values)}>Back</button>
+										<button className="form-button" type="submit" disabled={isSubmitting || !isValid}>Submit</button>
 									</div>
 								</Form>
 							)}

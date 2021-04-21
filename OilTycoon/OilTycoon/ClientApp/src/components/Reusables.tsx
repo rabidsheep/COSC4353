@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import wordart from '../assets/wordart.png';
+import wordart from '../assets/wowoil2.png';
 
 /* nav bar */
 export function Navigation() {
@@ -22,7 +22,7 @@ export function TitleArea() {
 
 	return (
 		<div className="logo">
-			<img style={{ width: '100%', maxWidth: '300px' }} src={wordart} />
+			<img style={{ width: '100%', maxWidth: '500px', padding: '2%' }} src={wordart} />
 		</div>
 	);
 
