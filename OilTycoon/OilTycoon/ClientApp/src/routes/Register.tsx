@@ -134,7 +134,8 @@ export function Register() {
 							})}
 							enableReinitialize
 							onSubmit={onSubmit}>
-							{({ isSubmitting, isValid, errors, touched, values }) => (
+							{({ isSubmitting, isValid, errors, touched, values }: { isSubmitting: any, isValid: any, errors: any, touched: any, values: any }) => (
+								// or this can be left as: { isSubmitting, isValid, errors, touched, values } only, but to avoid errors, we explicitly init as 'any'
 								<Form id="register-form" className="userform">
 									<div id="register-wrapper">
 											<div className="field-row">

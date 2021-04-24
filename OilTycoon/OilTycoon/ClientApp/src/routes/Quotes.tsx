@@ -144,7 +144,8 @@ export function Quotes() {
 							.required('Required'),
 					})}
 					onSubmit={onSubmit}>
-					{({ isSubmitting, isValid, errors, touched, values }) => (
+						{({ isSubmitting, isValid, errors, touched, values }: { isSubmitting: any, isValid: any, errors: any, touched: any, values: any }) => (
+							// or this can be left as: { isSubmitting, isValid, errors, touched, values } only, but to avoid errors, we explicitly init as 'any'
 							<Form id="quotes-form" className="userform">
 								<div id="quote-wrapper">
 								<DataFetcher />

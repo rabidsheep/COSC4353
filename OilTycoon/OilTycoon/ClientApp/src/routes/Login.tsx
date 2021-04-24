@@ -2,7 +2,6 @@ import React from 'react';
 import { useHistory, useLocation } from 'react-router';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
-
 import { ValidateInput } from '../components/InputValidation';
 import { TitleArea } from '../components/Reusables';
 import { AuthClient } from '../generated';
@@ -64,7 +63,9 @@ export function Login() {
 							})}
 							enableReinitialize
 							onSubmit={onSubmit}>
-							{({ isSubmitting, isValid, errors, touched, values }) => (
+							
+							{({ isSubmitting, isValid, errors, touched, values }: { isSubmitting: any, isValid: any, errors: any, touched: any, values: any }) => (
+								// or this can be left as: { isSubmitting, isValid, errors, touched, values } only, but to avoid errors, we explicitly init as 'any'
 								<Form id="login-form" className="userform">
 									<div id="login-wrapper">
 										<div className="field-row">
