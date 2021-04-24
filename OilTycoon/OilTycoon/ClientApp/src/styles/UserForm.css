@@ -22,6 +22,10 @@
 	/* left-side css */
 	.userform .flex-container.main-flex {
 		flex: 2;
+		background-image: url('../assets/rig.jpg');
+		background-position:left;
+		background-size: cover;
+		height: calc(100%);
 	}
 
 	/* right-side css */

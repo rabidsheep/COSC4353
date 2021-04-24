@@ -9,6 +9,8 @@ body, input, select {
 .auth .main-bg, #register-area, #login-area {
     background-color: #393f46;
     border: 1px solid black;
+    border-bottom: none;
+    border-top: none;
 }
 
 input, select {
