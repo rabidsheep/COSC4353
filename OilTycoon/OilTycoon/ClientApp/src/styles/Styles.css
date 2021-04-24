@@ -102,9 +102,9 @@ ul.navigation li, .form-button {
     background-color: #f7ce3e;
 }
 
-    .form-button:not:(:disabled)hover, ul.navigation li:hover {
-        background-color: #ffe073;
-    }
+.form-button:not(:disabled)hover, ul.navigation li:hover {
+    background-color: #ffe073;
+}
 
 .errors {
     font-size: 14px;
